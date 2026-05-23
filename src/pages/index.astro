@@ -1,0 +1,116 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import ProductCard from '../components/ProductCard.astro';
+import Footer from '../components/Footer.astro';
+import produtos from '../content/produtos.json';
+---
+
+<Layout title="Grupo Viktus — Tecnologia para saúde e gestão">
+  <Nav />
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <h1>Grupo Viktus</h1>
+        <p class="tagline">Tecnologia para saúde e gestão de negócios.</p>
+        <p class="sub">Desenvolvemos soluções SaaS para clínicas, empresas e espaços comerciais no Brasil.</p>
+      </div>
+    </section>
+
+    <section class="products" id="produtos">
+      <div class="container">
+        <h2>Nossas soluções</h2>
+        <div class="grid">
+          {produtos.map((p) => (
+            <ProductCard
+              name={p.name}
+              tagline={p.tagline}
+              description={p.description}
+              url={p.url}
+              status={p.status as 'producao' | 'desenvolvimento' | 'em-breve'}
+              ctaLabel={p.ctaLabel}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <section class="about" id="sobre">
+      <div class="container">
+        <h2>Sobre o Grupo</h2>
+        <p>
+          O Grupo Viktus desenvolve software voltado para a realidade das empresas brasileiras.
+          Nosso foco está na simplicidade de uso, confiabilidade e integração com os canais que
+          seus clientes já utilizam.
+        </p>
+        <p>
+          Cada produto da família Viktus foi construído para resolver um problema real:
+          gestão financeira, comunicação com pacientes e controle de espaços — tudo com
+          multi-tenancy nativo e infraestrutura moderna.
+        </p>
+        <a href="/sobre" class="link-sobre">Conheça mais sobre o Grupo →</a>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .hero {
+    padding: var(--space-24) var(--space-6) var(--space-16);
+    text-align: center;
+  }
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    margin-bottom: var(--space-4);
+  }
+  .tagline {
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-3);
+  }
+  .sub {
+    font-size: 0.95rem;
+    color: var(--color-text-faint);
+    max-width: 520px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .products, .about {
+    padding: var(--space-12) var(--space-6);
+  }
+  .container {
+    max-width: var(--max-width-wide);
+    margin: 0 auto;
+  }
+  h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: var(--space-8);
+    letter-spacing: -0.02em;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--space-4);
+  }
+
+  .about p {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--color-text-muted);
+    max-width: 640px;
+    margin-bottom: var(--space-4);
+  }
+  .link-sobre {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-link);
+  }
+</style>

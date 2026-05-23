@@ -1,0 +1,55 @@
+---
+import '../styles/tokens.css';
+
+interface Props {
+  title: string;
+  description?: string;
+  canonical?: string;
+}
+
+const {
+  title,
+  description = 'Grupo Viktus — Tecnologia para saúde e gestão de negócios.',
+  canonical = Astro.url.href,
+} = Astro.props;
+
+const ogImage = new URL('/og-image.png', Astro.site).href;
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <style is:global>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+      html { font-family: var(--font-sans); font-size: 16px; scroll-behavior: smooth; }
+      body {
+        background: var(--color-bg-gradient);
+        color: var(--color-text);
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+      }
+      a { color: var(--color-link); }
+      a:hover { opacity: 0.85; }
+      img { max-width: 100%; height: auto; display: block; }
+    </style>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,29 @@
+[
+  {
+    "id": "financas",
+    "name": "Viktus Finanças",
+    "tagline": "Gestão financeira para PMEs",
+    "description": "Controle contas a pagar e receber, fluxo de caixa e antecipações com visibilidade total do seu negócio.",
+    "url": "https://financas.viktus.com.br",
+    "status": "producao",
+    "ctaLabel": "Acessar sistema"
+  },
+  {
+    "id": "care",
+    "name": "Viktus Care",
+    "tagline": "Relacionamento clínica-paciente multicanal",
+    "description": "Comunicação com pacientes via WhatsApp, SMS e email com histórico unificado e automação inteligente.",
+    "url": "https://care.viktus.com.br",
+    "status": "producao",
+    "ctaLabel": "Conheça o produto"
+  },
+  {
+    "id": "spaces",
+    "name": "Viktus Spaces",
+    "tagline": "Gestão de espaços e salas comerciais",
+    "description": "Locação, controle de acesso e pagamentos integrados para espaços compartilhados e consultórios.",
+    "url": "https://spaces.viktus.com.br",
+    "status": "desenvolvimento",
+    "ctaLabel": "Em breve"
+  }
+]

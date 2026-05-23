@@ -1,0 +1,107 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Política de Privacidade — Grupo Viktus"
+  description="Política de privacidade do site institucional viktus.com.br e do Grupo Viktus."
+>
+  <Nav />
+
+  <main class="container">
+    <h1>Política de Privacidade</h1>
+    <p class="meta">Vigência: maio de 2026 — Versão 1.0</p>
+
+    <p class="intro">
+      Esta política descreve como o site <strong>viktus.com.br</strong> e o Grupo Viktus tratam
+      dados pessoais de visitantes e contatos. Para a política do produto <strong>Viktus Care</strong>,
+      acesse <a href="/care/privacidade">viktus.com.br/care/privacidade</a>.
+    </p>
+
+    <h2>1. Responsável pelo tratamento</h2>
+    <p>
+      <strong>Guri Grupo de Urgência e Recuperação Infantil Ltda</strong><br />
+      CNPJ 12.181.962/0001-73<br />
+      Rua General Hermes, 795 — Bom Parto, Maceió/AL, CEP 57017-201<br />
+      Encarregado de Dados (DPO): <a href="mailto:contato@viktus.com.br">contato@viktus.com.br</a>
+    </p>
+
+    <h2>2. Dados que coletamos neste site</h2>
+    <p>Este site institucional coleta apenas:</p>
+    <ul>
+      <li><strong>Dados de contato voluntários</strong>: nome e email quando você nos envia uma mensagem pelo formulário de contato.</li>
+      <li><strong>Dados de navegação</strong>: logs de acesso do servidor (IP, user-agent, timestamp) retidos por até 30 dias para segurança e diagnóstico.</li>
+    </ul>
+    <p>Não utilizamos cookies de rastreamento, pixels de marketing ou analytics de terceiros neste site.</p>
+
+    <h2>3. Finalidade</h2>
+    <p>Os dados coletados são usados exclusivamente para responder à sua mensagem de contato e para diagnóstico técnico de falhas. Não utilizamos seus dados para marketing sem consentimento prévio.</p>
+
+    <h2>4. Base legal (LGPD)</h2>
+    <ul>
+      <li>Contato voluntário: <strong>consentimento</strong> (Art. 7, I).</li>
+      <li>Logs de acesso: <strong>legítimo interesse</strong> em segurança operacional (Art. 7, IX).</li>
+    </ul>
+
+    <h2>5. Compartilhamento</h2>
+    <p>Não vendemos dados pessoais. Não compartilhamos com terceiros, exceto fornecedores de infraestrutura estritamente necessários (hospedagem Cloudflare) e quando exigido por lei.</p>
+
+    <h2>6. Seus direitos (LGPD Art. 18)</h2>
+    <p>Você pode, a qualquer momento, solicitar ao DPO:</p>
+    <ul>
+      <li>Acesso aos seus dados;</li>
+      <li>Correção de dados incorretos;</li>
+      <li>Eliminação dos dados fornecidos voluntariamente;</li>
+      <li>Revogação de consentimento.</li>
+    </ul>
+    <p>Prazo de resposta: até 15 dias úteis.</p>
+
+    <h2>7. Alterações</h2>
+    <p>Atualizações relevantes serão comunicadas nesta página. A data de vigência indica a versão em vigor.</p>
+
+    <nav class="page-nav">
+      <a href="/">Início</a>
+      <a href="/termos">Termos de Uso</a>
+      <a href="/contato">Contato</a>
+    </nav>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--space-12) var(--space-6);
+  }
+  h1 { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: var(--space-2); }
+  .meta { font-size: 0.8rem; color: var(--color-text-faint); margin-bottom: var(--space-8); }
+  .intro {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    padding: var(--space-4) var(--space-6);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-8);
+  }
+  h2 { font-size: 1rem; font-weight: 700; margin: var(--space-8) 0 var(--space-3); color: var(--color-text); }
+  p, li { font-size: 0.9rem; line-height: 1.75; color: var(--color-text-muted); margin-bottom: var(--space-3); }
+  ul { padding-left: var(--space-6); margin-bottom: var(--space-3); }
+  li { margin-bottom: var(--space-2); }
+  strong { color: var(--color-text); }
+  .page-nav {
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    gap: var(--space-6);
+    font-size: 0.85rem;
+  }
+  .page-nav a { color: var(--color-text-muted); text-decoration: none; }
+  .page-nav a:hover { color: var(--color-text); }
+</style>

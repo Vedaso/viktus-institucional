@@ -1,0 +1,122 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Sobre — Grupo Viktus"
+  description="Conheça o Grupo Viktus: quem somos, nossa missão e os produtos que desenvolvemos para saúde e gestão de negócios."
+>
+  <Nav />
+
+  <main class="container">
+    <h1>Sobre o Grupo Viktus</h1>
+
+    <section>
+      <h2>Quem somos</h2>
+      <p>
+        O Grupo Viktus é uma empresa brasileira de tecnologia focada no desenvolvimento de
+        soluções SaaS para o mercado de saúde e gestão de negócios. Operamos com foco em
+        empresas de pequeno e médio porte que precisam de software confiável, simples e
+        integrado com os canais que seus clientes já utilizam.
+      </p>
+    </section>
+
+    <section>
+      <h2>Nossa missão</h2>
+      <p>
+        Construir produtos que resolvam problemas reais do dia a dia das empresas brasileiras,
+        com tecnologia moderna, custo acessível e suporte próximo.
+      </p>
+    </section>
+
+    <section>
+      <h2>Produtos</h2>
+      <ul>
+        <li>
+          <strong>Viktus Finanças</strong> — Sistema de gestão financeira multi-tenant para PMEs.
+          Controle de contas a pagar e receber, fluxo de caixa e antecipações.
+          <a href="https://financas.viktus.com.br" target="_blank" rel="noopener">Acessar →</a>
+        </li>
+        <li>
+          <strong>Viktus Care</strong> — Plataforma de relacionamento clínica-paciente.
+          Comunicação multicanal via WhatsApp, SMS e email com histórico unificado.
+          <a href="https://care.viktus.com.br" target="_blank" rel="noopener">Conhecer →</a>
+        </li>
+        <li>
+          <strong>Viktus Spaces</strong> — Gestão de espaços e salas comerciais.
+          Locação, controle de acesso e pagamentos integrados. <em>Em desenvolvimento.</em>
+        </li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Dados da empresa</h2>
+      <dl>
+        <dt>Razão Social</dt>
+        <dd>Guri Grupo de Urgência e Recuperação Infantil Ltda</dd>
+        <dt>CNPJ</dt>
+        <dd>12.181.962/0001-73</dd>
+        <dt>Sede</dt>
+        <dd>Rua General Hermes, 795 — Bom Parto, Maceió/AL, CEP 57017-201</dd>
+        <dt>Contato</dt>
+        <dd><a href="mailto:contato@viktus.com.br">contato@viktus.com.br</a></dd>
+      </dl>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--space-12) var(--space-6);
+  }
+  h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-12);
+  }
+  section { margin-bottom: var(--space-12); }
+  h2 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: var(--space-4);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 0.8rem;
+  }
+  p {
+    font-size: 0.95rem;
+    line-height: 1.75;
+    color: var(--color-text-muted);
+  }
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+  li {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    padding-left: var(--space-4);
+    border-left: 2px solid var(--color-border);
+  }
+  li strong { color: var(--color-text); display: block; margin-bottom: 2px; }
+  li a { font-size: 0.85rem; margin-left: var(--space-2); }
+  dl {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-2) var(--space-6);
+    font-size: 0.9rem;
+  }
+  dt { color: var(--color-text-faint); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; align-self: center; }
+  dd { color: var(--color-text-muted); }
+</style>

@@ -1,0 +1,98 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Termos de Uso — Grupo Viktus"
+  description="Termos de uso do site institucional viktus.com.br e do Grupo Viktus."
+>
+  <Nav />
+
+  <main class="container">
+    <h1>Termos de Uso</h1>
+    <p class="meta">Vigência: maio de 2026 — Versão 1.0</p>
+
+    <p class="intro">
+      Estes termos regem o uso do site <strong>viktus.com.br</strong>. Para os termos do produto
+      <strong>Viktus Care</strong>, acesse <a href="/care/termos">viktus.com.br/care/termos</a>.
+    </p>
+
+    <h2>1. Aceitação</h2>
+    <p>Ao acessar e utilizar este site, você concorda com estes Termos de Uso e com nossa <a href="/privacidade">Política de Privacidade</a>.</p>
+
+    <h2>2. Operador</h2>
+    <p>
+      Este site é operado por <strong>Guri Grupo de Urgência e Recuperação Infantil Ltda</strong>
+      (Grupo Viktus), CNPJ 12.181.962/0001-73, com sede em Maceió/AL.
+    </p>
+
+    <h2>3. Uso do site</h2>
+    <p>Este site tem caráter exclusivamente informativo. Você pode acessá-lo livremente para:</p>
+    <ul>
+      <li>Conhecer os produtos e serviços do Grupo Viktus;</li>
+      <li>Entrar em contato conosco;</li>
+      <li>Acessar os links para os sistemas dos produtos.</li>
+    </ul>
+    <p>É proibido utilizar o site para fins ilícitos, prejudicar a infraestrutura ou tentar acesso não autorizado.</p>
+
+    <h2>4. Propriedade intelectual</h2>
+    <p>Todo o conteúdo deste site (textos, marca "Viktus", layout) é de propriedade do Grupo Viktus ou de seus licenciantes. É vedada a reprodução sem autorização prévia.</p>
+
+    <h2>5. Links externos</h2>
+    <p>Este site contém links para os sistemas dos produtos Viktus (financas.viktus.com.br, care.viktus.com.br, spaces.viktus.com.br). Cada sistema possui seus próprios termos de uso específicos.</p>
+
+    <h2>6. Limitação de responsabilidade</h2>
+    <p>O site é fornecido "como está". Não garantimos disponibilidade ininterrupta. Não nos responsabilizamos por danos decorrentes do uso ou impossibilidade de uso deste site informativo.</p>
+
+    <h2>7. Foro</h2>
+    <p>Fica eleito o Foro da Comarca de Maceió — AL para dirimir questões oriundas destes Termos.</p>
+
+    <h2>8. Alterações</h2>
+    <p>Podemos atualizar estes termos. Mudanças serão comunicadas nesta página.</p>
+
+    <nav class="page-nav">
+      <a href="/">Início</a>
+      <a href="/privacidade">Política de Privacidade</a>
+      <a href="/contato">Contato</a>
+    </nav>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--space-12) var(--space-6);
+  }
+  h1 { font-size: 2rem; font-weight: 800; letter-spacing: -0.02em; margin-bottom: var(--space-2); }
+  .meta { font-size: 0.8rem; color: var(--color-text-faint); margin-bottom: var(--space-8); }
+  .intro {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+    padding: var(--space-4) var(--space-6);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-8);
+  }
+  h2 { font-size: 1rem; font-weight: 700; margin: var(--space-8) 0 var(--space-3); color: var(--color-text); }
+  p, li { font-size: 0.9rem; line-height: 1.75; color: var(--color-text-muted); margin-bottom: var(--space-3); }
+  ul { padding-left: var(--space-6); margin-bottom: var(--space-3); }
+  li { margin-bottom: var(--space-2); }
+  strong { color: var(--color-text); }
+  .page-nav {
+    margin-top: var(--space-12);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+    display: flex;
+    gap: var(--space-6);
+    font-size: 0.85rem;
+  }
+  .page-nav a { color: var(--color-text-muted); text-decoration: none; }
+  .page-nav a:hover { color: var(--color-text); }
+</style>
