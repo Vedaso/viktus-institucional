@@ -1,42 +1,59 @@
-/* Viktus brand tokens — extraídos do Worker em produção */
+/* Viktus brand tokens — Manual de Marca Viktus 2026 */
 :root {
-  --color-primary: #0E5172;
-  --color-dark: #1A1A2E;
-  --color-link: #7DD3FC;
-  --color-bg-gradient: linear-gradient(135deg, #0E5172 0%, #1A1A2E 100%);
-  --color-surface: rgba(255, 255, 255, 0.06);
-  --color-surface-hover: rgba(255, 255, 255, 0.10);
-  --color-border: rgba(255, 255, 255, 0.12);
-  --color-text: #ffffff;
-  --color-text-muted: rgba(255, 255, 255, 0.70);
-  --color-text-faint: rgba(255, 255, 255, 0.50);
+  /* === Paleta oficial === */
+  --deep:   #050714;
+  --bone:   #F2EEE3;
+  --navy:   #0E1330;
+  --sage:   oklch(0.62 0.05 165);   /* Care — #6A907F */
+  --fumaca: oklch(0.32 0.01 250);   /* Spaces — #2F3338 */
 
-  --badge-producao-bg: rgba(21, 128, 61, 0.25);
-  --badge-producao-border: rgba(21, 128, 61, 0.60);
-  --badge-producao-text: #86efac;
-  --badge-desenvolvimento-bg: rgba(180, 83, 9, 0.25);
-  --badge-desenvolvimento-border: rgba(180, 83, 9, 0.60);
-  --badge-desenvolvimento-text: #fcd34d;
-  --badge-embreve-bg: rgba(255,255,255,0.08);
-  --badge-embreve-border: rgba(255,255,255,0.20);
-  --badge-embreve-text: rgba(255,255,255,0.55);
+  /* === Semânticos — tema escuro (Gestão: Deep bg) === */
+  --color-bg:            var(--deep);
+  --color-surface:       rgba(242, 238, 227, 0.05);
+  --color-surface-hover: rgba(242, 238, 227, 0.09);
+  --color-border:        rgba(242, 238, 227, 0.12);
+  --color-text:          var(--bone);
+  --color-text-muted:    rgba(242, 238, 227, 0.65);
+  --color-text-faint:    rgba(242, 238, 227, 0.40);
+  --color-link:          rgba(242, 238, 227, 0.80);
 
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  /* === Accents por produto === */
+  --color-care:    var(--sage);
+  --color-financas: var(--navy);
+  --color-spaces:  var(--fumaca);
 
-  --radius-sm: 6px;
-  --radius-md: 12px;
+  /* === Badges === */
+  --badge-producao-bg:         rgba(106, 144, 127, 0.20);
+  --badge-producao-border:     rgba(106, 144, 127, 0.50);
+  --badge-producao-text:       oklch(0.80 0.05 165);
+  --badge-desenvolvimento-bg:  rgba(242, 238, 227, 0.08);
+  --badge-desenvolvimento-border: rgba(242, 238, 227, 0.22);
+  --badge-desenvolvimento-text: rgba(242, 238, 227, 0.70);
+  --badge-embreve-bg:          rgba(242, 238, 227, 0.05);
+  --badge-embreve-border:      rgba(242, 238, 227, 0.15);
+  --badge-embreve-text:        rgba(242, 238, 227, 0.40);
+
+  /* === Tipografia === */
+  --font-sans: "Space Grotesk", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* === Forma === */
+  --radius-sm:   6px;
+  --radius-md:   12px;
   --radius-pill: 9999px;
 
-  --space-1: 4px;
-  --space-2: 8px;
-  --space-3: 12px;
-  --space-4: 16px;
-  --space-6: 24px;
-  --space-8: 32px;
+  /* === Espaçamento === */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-6:  24px;
+  --space-8:  32px;
   --space-12: 48px;
   --space-16: 64px;
   --space-24: 96px;
 
-  --max-width: 800px;
+  /* === Layout === */
+  --max-width:      800px;
   --max-width-wide: 1000px;
 }

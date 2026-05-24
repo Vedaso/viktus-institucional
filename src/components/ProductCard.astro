@@ -6,9 +6,12 @@ interface Props {
   url: string;
   status: 'producao' | 'desenvolvimento' | 'em-breve';
   ctaLabel: string;
+  accent?: string;
+  icon?: string;
+  descriptor?: string;
 }
 
-const { name, tagline, description, url, status, ctaLabel } = Astro.props;
+const { name, tagline, description, url, status, ctaLabel, accent, icon, descriptor } = Astro.props;
 
 const badgeText = {
   producao: 'Em produção',
@@ -17,17 +20,22 @@ const badgeText = {
 }[status];
 ---
 
-<article class={`card card--${status}`}>
-  <div class="card-header">
-    <h3>{name}</h3>
+<article class={`card card--${status}`} style={accent ? `--card-accent: ${accent}` : ''}>
+  <div class="card-top">
+    <!-- Lockup composto: icon SVG + wordmark PNG + descriptor texto — igual ao Manual de Marca -->
+    <div class="lockup">
+      {icon && <img src={icon} alt="" class="lockup-icon" aria-hidden="true" />}
+      <div class="lockup-stack">
+        <img src="/brand/wordmark-viktus.png" alt="Viktus" class="lockup-wm" />
+        {descriptor && <span class="lockup-desc">{descriptor}</span>}
+      </div>
+    </div>
     <span class={`badge badge--${status}`}>{badgeText}</span>
   </div>
   <p class="tagline">{tagline}</p>
   <p class="description">{description}</p>
   {status === 'producao' ? (
     <a href={url} target="_blank" rel="noopener noreferrer" class="cta">{ctaLabel} →</a>
-  ) : status === 'desenvolvimento' ? (
-    <a href={url} target="_blank" rel="noopener noreferrer" class="cta cta--muted">{ctaLabel}</a>
   ) : (
     <span class="cta cta--disabled">{ctaLabel}</span>
   )}
@@ -35,8 +43,10 @@ const badgeText = {
 
 <style>
   .card {
+    --card-accent: var(--bone);
     background: var(--color-surface);
     border: 1px solid var(--color-border);
+    border-top: 2px solid var(--card-accent);
     border-radius: var(--radius-md);
     padding: var(--space-6);
     display: flex;
@@ -46,23 +56,59 @@ const badgeText = {
   }
   .card:hover { background: var(--color-surface-hover); }
 
-  .card-header {
+  .card-top {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     gap: var(--space-3);
-    flex-wrap: wrap;
+    margin-bottom: var(--space-2);
   }
-  h3 { font-size: 1.15rem; font-weight: 700; }
+
+  /* Lockup composto — proporcional ao manual */
+  .lockup {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .lockup-icon {
+    height: 48px;
+    width: 48px;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+  }
+  .lockup-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .lockup-wm {
+    height: 18px;
+    width: auto;
+    max-width: 80px;
+    display: block;
+    object-fit: contain;
+  }
+  .lockup-desc {
+    font-family: var(--font-mono);
+    font-weight: 500;
+    font-size: 0.7rem;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    line-height: 1;
+  }
 
   .badge {
-    font-size: 0.7rem;
-    font-weight: 600;
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    font-weight: 500;
     padding: 3px 10px;
     border-radius: var(--radius-pill);
     white-space: nowrap;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.10em;
     text-transform: uppercase;
+    flex-shrink: 0;
   }
   .badge--producao {
     background: var(--badge-producao-bg);
@@ -80,19 +126,20 @@ const badgeText = {
     color: var(--badge-embreve-text);
   }
 
-  .tagline { font-size: 0.9rem; font-weight: 600; color: var(--color-text-muted); }
-  .description { font-size: 0.875rem; line-height: 1.6; color: var(--color-text-muted); flex: 1; }
+  .tagline { font-size: 0.875rem; font-weight: 500; color: var(--color-text-muted); }
+  .description { font-size: 0.875rem; line-height: 1.65; color: var(--color-text-muted); flex: 1; }
 
   .cta {
     display: inline-block;
     margin-top: var(--space-2);
-    font-size: 0.875rem;
-    font-weight: 600;
+    font-size: 0.8rem;
+    font-weight: 500;
+    font-family: var(--font-mono);
+    letter-spacing: 0.06em;
     color: var(--color-link);
     text-decoration: none;
     transition: opacity 0.15s;
   }
-  .cta:hover { opacity: 0.8; }
-  .cta--muted { color: var(--color-text-muted); }
+  .cta:hover { opacity: 0.75; }
   .cta--disabled { color: var(--color-text-faint); cursor: default; }
 </style>

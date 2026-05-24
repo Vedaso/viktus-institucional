@@ -6,7 +6,10 @@
     "description": "Controle contas a pagar e receber, fluxo de caixa e antecipações com visibilidade total do seu negócio.",
     "url": "https://financas.viktus.com.br",
     "status": "producao",
-    "ctaLabel": "Acessar sistema"
+    "ctaLabel": "Acessar sistema",
+    "accent": "var(--navy)",
+    "icon": "/brand/icon-financas.svg",
+    "descriptor": "Finanças"
   },
   {
     "id": "care",
@@ -15,7 +18,10 @@
     "description": "Comunicação com pacientes via WhatsApp, SMS e email com histórico unificado e automação inteligente.",
     "url": "https://care.viktus.com.br",
     "status": "producao",
-    "ctaLabel": "Conheça o produto"
+    "ctaLabel": "Conheça o produto",
+    "accent": "var(--sage)",
+    "icon": "/brand/icon-care.svg",
+    "descriptor": "Care"
   },
   {
     "id": "spaces",
@@ -24,6 +30,9 @@
     "description": "Locação, controle de acesso e pagamentos integrados para espaços compartilhados e consultórios.",
     "url": "https://spaces.viktus.com.br",
     "status": "desenvolvimento",
-    "ctaLabel": "Em breve"
+    "ctaLabel": "Em breve",
+    "accent": "var(--fumaca)",
+    "icon": "/brand/icon-spaces.svg",
+    "descriptor": "Spaces"
   }
 ]

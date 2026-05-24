@@ -12,9 +12,8 @@ import produtos from '../content/produtos.json';
   <main>
     <section class="hero">
       <div class="container">
-        <h1>Grupo Viktus</h1>
-        <p class="tagline">Tecnologia para saúde e gestão de negócios.</p>
-        <p class="sub">Desenvolvemos soluções SaaS para clínicas, empresas e espaços comerciais no Brasil.</p>
+        <img src="/brand/v-mark.png" alt="" class="hero-vmark" aria-hidden="true" />
+        <img src="/brand/wordmark-viktus.png" alt="Grupo Viktus" class="hero-wordmark" />
       </div>
     </section>
 
@@ -30,6 +29,9 @@ import produtos from '../content/produtos.json';
               url={p.url}
               status={p.status as 'producao' | 'desenvolvimento' | 'em-breve'}
               ctaLabel={p.ctaLabel}
+              accent={p.accent}
+              icon={p.icon}
+              descriptor={p.descriptor}
             />
           ))}
         </div>
@@ -62,25 +64,19 @@ import produtos from '../content/produtos.json';
     padding: var(--space-24) var(--space-6) var(--space-16);
     text-align: center;
   }
-  h1 {
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 800;
-    letter-spacing: -0.03em;
-    margin-bottom: var(--space-4);
+  .hero-vmark {
+    height: clamp(64px, 10vw, 96px);
+    width: auto;
+    margin: 0 auto var(--space-6);
+    display: block;
+    opacity: 0.9;
   }
-  .tagline {
-    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-3);
+  .hero-wordmark {
+    height: clamp(32px, 5vw, 52px);
+    width: auto;
+    margin: 0 auto var(--space-8);
+    display: block;
   }
-  .sub {
-    font-size: 0.95rem;
-    color: var(--color-text-faint);
-    max-width: 520px;
-    margin: 0 auto;
-    line-height: 1.7;
-  }
-
   .products, .about {
     padding: var(--space-12) var(--space-6);
   }

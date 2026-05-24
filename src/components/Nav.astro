@@ -4,7 +4,9 @@ const currentPath = Astro.url.pathname;
 
 <nav>
   <div class="nav-inner">
-    <a href="/" class="logo">Viktus</a>
+    <a href="/" class="logo" aria-label="Grupo Viktus — início">
+      <img src="/brand/wordmark-viktus.png" alt="Viktus" />
+    </a>
     <ul>
       <li><a href="/sobre" class={currentPath === '/sobre/' || currentPath === '/sobre' ? 'active' : ''}>Sobre</a></li>
       <li><a href="/contato" class={currentPath === '/contato/' || currentPath === '/contato' ? 'active' : ''}>Contato</a></li>
@@ -24,12 +26,11 @@ const currentPath = Astro.url.pathname;
     align-items: center;
     justify-content: space-between;
   }
-  .logo {
-    font-size: 1.5rem;
-    font-weight: 800;
-    color: var(--color-text);
-    text-decoration: none;
-    letter-spacing: -0.03em;
+  .logo img {
+    display: block;
+    height: 28px;
+    width: auto;
+    object-fit: contain;
   }
   ul {
     list-style: none;
@@ -39,7 +40,9 @@ const currentPath = Astro.url.pathname;
   a {
     color: var(--color-text-muted);
     text-decoration: none;
-    font-size: 0.9rem;
+    font-size: 0.875rem;
+    font-family: var(--font-mono);
+    letter-spacing: 0.06em;
     transition: color 0.15s;
   }
   a:hover, a.active { color: var(--color-text); }
