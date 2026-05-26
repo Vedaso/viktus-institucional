@@ -4,7 +4,7 @@ interface Props {
   tagline: string;
   description: string;
   url: string;
-  status: 'producao' | 'desenvolvimento' | 'em-breve';
+  status: 'producao' | 'ativo' | 'piloto' | 'desenvolvimento' | 'em-breve';
   ctaLabel: string;
   accent?: string;
   icon?: string;
@@ -13,11 +13,20 @@ interface Props {
 
 const { name, tagline, description, url, status, ctaLabel, accent, icon, descriptor } = Astro.props;
 
-const badgeText = {
+// 'ativo' = sistema rodando sem rotulação de fase (não exibe badge — só o card).
+// 'piloto' = rodando com clientes selecionados em validação de campo (link aberto pra quem conhecer).
+// 'producao' (legado): rotulação explícita de "Em produção" — mantido pra compat caso volte a ser usado.
+const badgeText: Record<Props['status'], string | null> = {
   producao: 'Em produção',
+  ativo: null,
+  piloto: 'Em piloto',
   desenvolvimento: 'Em desenvolvimento',
   'em-breve': 'Em breve',
-}[status];
+};
+
+// CTA clicável quando o sistema está rodando (producao, ativo ou piloto).
+const clickable = status === 'producao' || status === 'ativo' || status === 'piloto';
+const badge = badgeText[status];
 ---
 
 <article class={`card card--${status}`} style={accent ? `--card-accent: ${accent}` : ''}>
@@ -30,11 +39,11 @@ const badgeText = {
         {descriptor && <span class="lockup-desc">{descriptor}</span>}
       </div>
     </div>
-    <span class={`badge badge--${status}`}>{badgeText}</span>
+    {badge && <span class={`badge badge--${status}`}>{badge}</span>}
   </div>
   <p class="tagline">{tagline}</p>
   <p class="description">{description}</p>
-  {status === 'producao' ? (
+  {clickable ? (
     <a href={url} target="_blank" rel="noopener noreferrer" class="cta">{ctaLabel} →</a>
   ) : (
     <span class="cta cta--disabled">{ctaLabel}</span>
@@ -114,6 +123,11 @@ const badgeText = {
     background: var(--badge-producao-bg);
     border: 1px solid var(--badge-producao-border);
     color: var(--badge-producao-text);
+  }
+  .badge--piloto {
+    background: rgba(201, 169, 97, 0.16);
+    border: 1px solid rgba(201, 169, 97, 0.45);
+    color: oklch(0.82 0.08 80);
   }
   .badge--desenvolvimento {
     background: var(--badge-desenvolvimento-bg);
