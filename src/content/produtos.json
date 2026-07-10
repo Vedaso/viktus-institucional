@@ -17,8 +17,8 @@
     "tagline": "Relacionamento clínica-paciente multicanal",
     "description": "Comunicação com pacientes via WhatsApp, SMS e email com histórico unificado e automação inteligente.",
     "url": "https://care.viktus.com.br",
-    "status": "piloto",
-    "ctaLabel": "Conhecer (em piloto)",
+    "status": "ativo",
+    "ctaLabel": "Acessar sistema",
     "accent": "var(--sage)",
     "icon": "/brand/icon-care.svg",
     "descriptor": "Care"
@@ -29,8 +29,8 @@
     "tagline": "Gestão de espaços e salas comerciais",
     "description": "Locação, controle de acesso e pagamentos integrados para espaços compartilhados e consultórios.",
     "url": "https://spaces.viktus.com.br",
-    "status": "desenvolvimento",
-    "ctaLabel": "Em breve",
+    "status": "ativo",
+    "ctaLabel": "Acessar sistema",
     "accent": "var(--fumaca)",
     "icon": "/brand/icon-spaces.svg",
     "descriptor": "Spaces"
