@@ -43,6 +43,11 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
     <link rel="manifest" href="/site.webmanifest" />
 
     <style is:global>
+      /* Navegação entre rotas sem piscar. Cross-document view transitions:
+         Chrome 126+, Safari 18.2+, Firefox 144. Onde não houver suporte,
+         a navegação continua sendo a de sempre. */
+      @view-transition { navigation: auto; }
+
       *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
       html { font-family: var(--font-sans); font-size: 16px; scroll-behavior: smooth; }
       body {
@@ -54,6 +59,49 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
       a { color: var(--color-link); }
       a:hover { opacity: 0.85; }
       img { max-width: 100%; height: auto; display: block; }
+
+      :focus-visible {
+        outline: 2px solid var(--color-text);
+        outline-offset: 3px;
+        border-radius: 2px;
+      }
+
+      /* O wordmark do nav persiste na troca de página em vez de repintar. */
+      .vt-wordmark { view-transition-name: viktus-wordmark; }
+      ::view-transition-group(viktus-wordmark) {
+        animation-duration: 320ms;
+        animation-timing-function: var(--ease);
+      }
+
+      /* Reveal na entrada em tela, direto no compositor: sem JavaScript,
+         sem observer. Progressive enhancement, o conteúdo é visível por
+         padrão e só ganha movimento onde o browser suporta. */
+      @supports (animation-timeline: view()) {
+        @media (prefers-reduced-motion: no-preference) {
+          .reveal {
+            animation: reveal-in linear both;
+            animation-timeline: view();
+            /* Range ancorado só na fase de entrada. Com 'cover' o timeline
+               depende do elemento atravessar a tela inteira, e o que fica no
+               fim do documento nunca chega lá: trava em opacity 0 e o
+               conteúdo some. Com 'entry' basta o elemento ter entrado. */
+            animation-range: entry 0% entry 60%;
+          }
+        }
+      }
+      @keyframes reveal-in {
+        from { opacity: 0; transform: translateY(14px); }
+        to   { opacity: 1; transform: none; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html { scroll-behavior: auto; }
+        *, *::before, *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
     </style>
   </head>
   <body>

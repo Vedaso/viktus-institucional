@@ -4,8 +4,8 @@ const currentPath = Astro.url.pathname;
 
 <nav>
   <div class="nav-inner">
-    <a href="/" class="logo" aria-label="Grupo Viktus — início">
-      <img src="/brand/wordmark-viktus.png" alt="Viktus" />
+    <a href="/" class="logo" aria-label="Grupo Viktus, início">
+      <img src="/brand/wordmark-viktus.png" alt="Viktus" class="vt-wordmark" />
     </a>
     <ul>
       <li><a href="/sobre" class={currentPath === '/sobre/' || currentPath === '/sobre' ? 'active' : ''}>Sobre</a></li>
@@ -20,7 +20,7 @@ const currentPath = Astro.url.pathname;
     border-bottom: 1px solid var(--color-border);
   }
   .nav-inner {
-    max-width: var(--max-width-wide);
+    max-width: var(--max-width-editorial);
     margin: 0 auto;
     display: flex;
     align-items: center;

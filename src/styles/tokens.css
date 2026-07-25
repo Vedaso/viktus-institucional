@@ -37,6 +37,17 @@
   --font-sans: "Space Grotesk", system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
+  /* Display: acima de ~48px o espaçamento default fica frouxo e precisa
+     de aperto. Em em, para escalar junto com o font-size. */
+  --display-tracking: -0.045em;
+  --display-leading:  0.9;
+  --label-tracking:   0.16em;
+
+  /* === Motion === */
+  --ease:      cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast:  0.2s;
+  --dur-base:  0.35s;
+
   /* === Forma === */
   --radius-sm:   6px;
   --radius-md:   12px;
@@ -54,6 +65,7 @@
   --space-24: 96px;
 
   /* === Layout === */
-  --max-width:      800px;
-  --max-width-wide: 1000px;
+  --max-width:           800px;
+  --max-width-wide:      1000px;
+  --max-width-editorial: 1200px;
 }

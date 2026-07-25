@@ -1,9 +1,13 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Nav from '../components/Nav.astro';
-import ProductCard from '../components/ProductCard.astro';
+import ProductCell from '../components/ProductCell.astro';
 import Footer from '../components/Footer.astro';
 import produtos from '../content/produtos.json';
+
+// O primeiro produto do JSON ocupa a célula grande. Trocar o destaque
+// é reordenar o array; voltar a peso igual é ajustar o .grid abaixo.
+const ativos = produtos.filter((p) => p.status !== 'em-breve').length;
 ---
 
 <Layout title="Grupo Viktus — Tecnologia para saúde e gestão">
@@ -12,26 +16,40 @@ import produtos from '../content/produtos.json';
   <main>
     <section class="hero">
       <div class="container">
-        <img src="/brand/v-mark.png" alt="" class="hero-vmark" aria-hidden="true" />
-        <img src="/brand/wordmark-viktus.png" alt="Grupo Viktus" class="hero-wordmark" />
+        <h1 class="display reveal">Tecnologia para saúde <em>e gestão.</em></h1>
+        <dl class="facts reveal">
+          <div>
+            <dt>Sistemas no ar</dt>
+            <dd>{ativos}</dd>
+          </div>
+          <div>
+            <dt>Sede</dt>
+            <dd>Maceió, AL</dd>
+          </div>
+          <div>
+            <dt>Arquitetura</dt>
+            <dd>Multi-tenant nativo</dd>
+          </div>
+        </dl>
       </div>
     </section>
 
     <section class="products" id="produtos">
       <div class="container">
-        <h2>Nossas soluções</h2>
-        <div class="grid">
-          {produtos.map((p) => (
-            <ProductCard
+        <h2 class="label reveal">Nossas soluções</h2>
+        <div class="grid reveal">
+          {produtos.map((p, i) => (
+            <ProductCell
               name={p.name}
               tagline={p.tagline}
               description={p.description}
               url={p.url}
-              status={p.status as 'producao' | 'desenvolvimento' | 'em-breve'}
+              status={p.status as 'producao' | 'ativo' | 'piloto' | 'desenvolvimento' | 'em-breve'}
               ctaLabel={p.ctaLabel}
               accent={p.accent}
               icon={p.icon}
               descriptor={p.descriptor}
+              featured={i === 0}
             />
           ))}
         </div>
@@ -40,18 +58,23 @@ import produtos from '../content/produtos.json';
 
     <section class="about" id="sobre">
       <div class="container">
-        <h2>Sobre o Grupo</h2>
-        <p>
-          O Grupo Viktus desenvolve software voltado para a realidade das empresas brasileiras.
-          Nosso foco está na simplicidade de uso, confiabilidade e integração com os canais que
-          seus clientes já utilizam.
-        </p>
-        <p>
-          Cada produto da família Viktus foi construído para resolver um problema real:
-          gestão financeira, comunicação com pacientes e controle de espaços — tudo com
-          multi-tenancy nativo e infraestrutura moderna.
-        </p>
-        <a href="/sobre" class="link-sobre">Conheça mais sobre o Grupo →</a>
+        <h2 class="label reveal">Sobre o Grupo</h2>
+        <div class="about-body reveal">
+          <p>
+            O Grupo Viktus desenvolve software voltado para a realidade das empresas brasileiras.
+            Nosso foco está na simplicidade de uso, confiabilidade e integração com os canais que
+            seus clientes já utilizam.
+          </p>
+          <p>
+            Cada produto da família Viktus foi construído para resolver um problema real:
+            gestão financeira, comunicação com pacientes e controle de espaços, tudo com
+            multi-tenancy nativo e infraestrutura moderna.
+          </p>
+          <a href="/sobre" class="link-sobre">
+            Conheça mais sobre o Grupo
+            <span aria-hidden="true">→</span>
+          </a>
+        </div>
       </div>
     </section>
   </main>
@@ -60,53 +83,102 @@ import produtos from '../content/produtos.json';
 </Layout>
 
 <style>
-  .hero {
-    padding: var(--space-24) var(--space-6) var(--space-16);
-    text-align: center;
-  }
-  .hero-vmark {
-    height: clamp(64px, 10vw, 96px);
-    width: auto;
-    margin: 0 auto var(--space-6);
-    display: block;
-    opacity: 0.9;
-  }
-  .hero-wordmark {
-    height: clamp(32px, 5vw, 52px);
-    width: auto;
-    margin: 0 auto var(--space-8);
-    display: block;
-  }
-  .products, .about {
-    padding: var(--space-12) var(--space-6);
-  }
   .container {
-    max-width: var(--max-width-wide);
+    max-width: var(--max-width-editorial);
     margin: 0 auto;
   }
-  h2 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin-bottom: var(--space-8);
-    letter-spacing: -0.02em;
+
+  /* ---------- hero ---------- */
+  .hero { padding: var(--space-24) var(--space-6) var(--space-12); }
+
+  .display {
+    font-size: clamp(2.75rem, 8.5vw, 7rem);
+    font-weight: 500;
+    line-height: var(--display-leading);
+    letter-spacing: var(--display-tracking);
+    max-width: 13ch;
+    text-wrap: balance;
+  }
+  .display em { font-style: normal; color: var(--color-text-faint); }
+
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-8) var(--space-12);
+    margin-top: var(--space-12);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+  .facts div { display: flex; flex-direction: column; gap: var(--space-1); }
+  .facts dt {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: var(--label-tracking);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+  .facts dd {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-text);
+    font-variant-numeric: tabular-nums;
   }
 
+  /* ---------- rótulo de seção ---------- */
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: var(--label-tracking);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-6);
+  }
+
+  /* ---------- produtos ---------- */
+  .products { padding: var(--space-16) var(--space-6); }
+
+  /* Grade quebrada: o destaque ocupa a coluna larga e as duas linhas.
+     Para peso igual entre os três, trocar por repeat(3, 1fr) e remover
+     a regra de grid-row abaixo. */
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--space-4);
+    grid-template-columns: 1.25fr 1fr;
+    gap: 1px;
+    background: var(--color-border);
+    border: 1px solid var(--color-border);
   }
+  .grid > :global(.cell--featured) { grid-row: span 2; }
 
-  .about p {
-    font-size: 0.95rem;
+  /* ---------- sobre ---------- */
+  .about { padding: var(--space-12) var(--space-6) var(--space-16); }
+  .about-body { display: flex; flex-direction: column; gap: var(--space-4); }
+  .about-body p {
+    font-size: 1rem;
     line-height: 1.75;
     color: var(--color-text-muted);
-    max-width: 640px;
-    margin-bottom: var(--space-4);
+    max-width: 62ch;
   }
   .link-sobre {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--color-link);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    align-self: flex-start;
+    margin-top: var(--space-2);
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: var(--label-tracking);
+    text-transform: uppercase;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: gap var(--dur-base) var(--ease);
+  }
+  .link-sobre:hover { gap: var(--space-4); opacity: 1; }
+
+  @media (max-width: 860px) {
+    .grid { grid-template-columns: 1fr; }
+    .grid > :global(.cell--featured) { grid-row: auto; }
+    .hero { padding: var(--space-16) var(--space-6) var(--space-8); }
+    .facts { gap: var(--space-6) var(--space-8); margin-top: var(--space-8); }
   }
 </style>

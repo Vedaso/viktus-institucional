@@ -6,7 +6,7 @@ const year = new Date().getFullYear();
   <div class="footer-inner">
     <p class="company">
       Guri Grupo de Urgência e Recuperação Infantil Ltda<br />
-      CNPJ 12.181.962/0001-73 — Maceió, AL
+      CNPJ 12.181.962/0001-73 · Maceió, AL
     </p>
     <nav>
       <a href="/privacidade">Privacidade</a>
@@ -36,5 +36,6 @@ const year = new Date().getFullYear();
   nav { display: flex; gap: var(--space-6); }
   nav a { font-size: 0.85rem; color: var(--color-text-muted); text-decoration: none; }
   nav a:hover { color: var(--color-text); }
-  .copy { font-size: 0.75rem; color: var(--color-text-faint); }
+  /* faint em 0.75rem dá 3.4:1 sobre o Deep e reprova AA. */
+  .copy { font-size: 0.75rem; color: var(--color-text-muted); }
 </style>
