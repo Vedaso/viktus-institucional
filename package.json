@@ -7,9 +7,10 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && npm run check:build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check:build": "node scripts/check-build.mjs"
   },
   "dependencies": {
     "astro": "^6.3.7"

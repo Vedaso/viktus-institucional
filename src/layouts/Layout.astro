@@ -14,6 +14,18 @@ const {
 } = Astro.props;
 
 const ogImage = new URL('/og-image.png', Astro.site).href;
+
+// Identidade do build, para o deploy poder ser PROVADO em vez de suposto.
+//
+// Em 17/07/2026 um deploy de um dist/ velho reverteu esta produção, e ninguém percebeu porque o
+// site antigo também devolve HTTP 200. Sem um jeito de perguntar à página "que commit você é?",
+// a fase `provar` do runbook (coletor/deploys.json no viktus-monitor) não prova nada — foi por
+// isso que o runbook deste projeto ficou `ligado: false` até hoje.
+//
+// O valor vem do ambiente no momento do build; o runbook exporta GIT_COMMIT antes de `npm run
+// build`. Fora dele (dev, build à mão) vira 'dev', que é honesto: não afirma um commit que não
+// foi conferido. O smoke procura exatamente esta meta.
+const buildCommit = import.meta.env.GIT_COMMIT ?? process.env.GIT_COMMIT ?? 'dev';
 ---
 
 <!doctype html>
@@ -23,6 +35,7 @@ const ogImage = new URL('/og-image.png', Astro.site).href;
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <meta name="build-commit" content={buildCommit} />
     <link rel="canonical" href={canonical} />
 
     <meta property="og:title" content={title} />
