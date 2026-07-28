@@ -1,0 +1,52 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="Página não encontrada — Grupo Viktus"
+  description="Esta página não existe no site do Grupo Viktus. Veja as páginas disponíveis ou fale com a gente."
+>
+  <Nav />
+
+  <main class="container">
+    <h1>Esta página não existe</h1>
+    <p>
+      O endereço que você abriu não corresponde a nenhuma página do site. Ele pode ter
+      mudado, ou o link que você seguiu pode estar incompleto.
+    </p>
+    <ul>
+      <li><a href="/">Página inicial</a></li>
+      <li><a href="/sobre">Sobre o Grupo Viktus</a></li>
+      <li><a href="/contato">Contato</a></li>
+    </ul>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: var(--space-12) var(--space-6);
+  }
+  h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-6);
+  }
+  p {
+    line-height: 1.75;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-12);
+  }
+  ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+</style>
