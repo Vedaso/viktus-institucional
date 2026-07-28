@@ -19,8 +19,12 @@ com status em tempo real e serve como âncora para Meta Business Verification.
 ## Cloudflare
 - Zone ID: `1d139dddd01f5f87a8d4bff43949f737`
 - Account: `victor_omena@hotmail.com`
-- Worker que gerencia `viktus.com.br`: `viktus-care-landing` (arquivo: `viktus-care/infra/cloudflare/worker-landing-classic.js`)
-- **NÃO confundir com** `workers/care-router/` — esse Worker serve `care.viktus.com.br` (produto diferente)
+- Quem serve `viktus.com.br` e `www.viktus.com.br`: **este projeto Pages** (`viktus-institucional`).
+  Mexer no Astro muda o site público.
+- Worker `viktus-care-landing`: só na rota `viktus.com.br/care*` (arquivo: `viktus-care/infra/cloudflare/worker-landing-classic.js`).
+  Não alcança a raiz — o fallback interno dele só roda dentro desse padrão de rota.
+- **NÃO confundir com** `workers/care-router/` — rota `care.viktus.com.br/*` (produto diferente)
+- Medido na API da Cloudflare em 27/07/2026 (rotas de Worker da zona + domínios do projeto Pages).
 
 ## Rota crítica — NÃO remover
 `viktus.com.br/care/privacidade` e `viktus.com.br/care/termos` são servidos pelo Worker
