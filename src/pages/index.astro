@@ -49,6 +49,8 @@ const ativos = produtos.filter((p) => p.status !== 'em-breve').length;
               accent={p.accent}
               icon={p.icon}
               descriptor={p.descriptor}
+              secondaryUrl={p.secondaryUrl}
+              secondaryLabel={p.secondaryLabel}
               featured={i === 0}
             />
           ))}

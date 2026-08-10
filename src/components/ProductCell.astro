@@ -10,11 +10,15 @@ interface Props {
   icon?: string;
   descriptor?: string;
   featured?: boolean;
+  /** Segunda ação do card (hoje só o Spaces tem: cadastrar espaço). */
+  secondaryUrl?: string;
+  secondaryLabel?: string;
 }
 
 const {
   name, tagline, description, url, status, ctaLabel,
   accent, icon, descriptor, featured = false,
+  secondaryUrl, secondaryLabel,
 } = Astro.props;
 
 // 'ativo' = sistema rodando sem rotulação de fase (não exibe badge).
@@ -30,14 +34,19 @@ const badgeText: Record<Props['status'], string | null> = {
 
 const clickable = status === 'producao' || status === 'ativo' || status === 'piloto';
 const badge = badgeText[status];
-const Tag = clickable ? 'a' : 'div';
+
+// Com duas ações a célula não pode ser um <a>: link dentro de link é inválido.
+// Ela vira <div> e o CTA principal cobre o card por ::after (stretched link),
+// preservando "card inteiro clicável". O link secundário fica acima no z-index.
+const hasSecondary = clickable && !!secondaryUrl && !!secondaryLabel;
+const Tag = clickable && !hasSecondary ? 'a' : 'div';
 ---
 
 <Tag
-  class:list={['cell', `cell--${status}`, { 'cell--featured': featured }]}
+  class:list={['cell', `cell--${status}`, { 'cell--featured': featured, 'cell--dual': hasSecondary }]}
   style={accent ? `--cell-accent: ${accent}` : ''}
-  {...clickable ? { href: url, target: '_blank', rel: 'noopener noreferrer' } : {}}
-  aria-label={clickable ? `${name}, ${ctaLabel.toLowerCase()}` : undefined}
+  {...clickable && !hasSecondary ? { href: url, target: '_blank', rel: 'noopener noreferrer' } : {}}
+  aria-label={clickable && !hasSecondary ? `${name}, ${ctaLabel.toLowerCase()}` : undefined}
 >
   <div class="head">
     <!-- Lockup composto do manual: icon + wordmark + descriptor. -->
@@ -56,10 +65,23 @@ const Tag = clickable ? 'a' : 'div';
     {featured && <p class="description">{description}</p>}
   </div>
 
-  <span class="cta">
-    {ctaLabel}
-    <span class="arrow" aria-hidden="true">→</span>
-  </span>
+  {hasSecondary ? (
+    <div class="ctas">
+      <a class="cta cta--stretched" href={url} target="_blank" rel="noopener noreferrer">
+        {ctaLabel}
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <a class="cta cta--secondary" href={secondaryUrl} target="_blank" rel="noopener noreferrer">
+        {secondaryLabel}
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  ) : (
+    <span class="cta">
+      {ctaLabel}
+      <span class="arrow" aria-hidden="true">→</span>
+    </span>
+  )}
 </Tag>
 
 <style>
@@ -210,6 +232,47 @@ const Tag = clickable ? 'a' : 'div';
   a.cell:hover .cta,
   a.cell:focus-visible .cta { color: var(--color-text); gap: var(--space-4); }
   div.cell .cta { color: var(--color-text-faint); }
+
+  /* ---------- célula com duas ações (stretched link) ---------- */
+  /* `position: static` é o que faz o ::after do CTA principal se ancorar na
+     célula, e não no bloco dos CTAs — sem isso ele cobriria só o rodapé e o
+     card deixaria de ser clicável por inteiro. */
+  .cell--dual .ctas {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
+  }
+  .cta--stretched::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+  .cta--secondary {
+    position: relative;
+    z-index: 2;
+    font-size: 0.72rem;
+  }
+  /* A célula é <div> aqui, então recupera o que `a.cell:hover` dava e escapa
+     do faint reservado aos cards não clicáveis. */
+  /* Os dois CTAs ficam em `muted`: a hierarquia vem do tamanho, não da cor.
+     `faint` sobre o Deep dá 3.2:1 e reprovaria AA num texto de 0.72rem —
+     é a mesma razão que já tirou o faint do CTA principal. */
+  div.cell--dual .cta,
+  div.cell--dual .cta--secondary { color: var(--color-text-muted); }
+  .cell--dual:hover::after,
+  .cell--dual:focus-within::after { opacity: 0.3; }
+  .cell--dual:hover { background: var(--color-surface); }
+  .cell--dual:hover .lockup-icon { transform: translateY(-2px); }
+  .cell--dual:hover .cta--stretched,
+  .cta--stretched:focus-visible { color: var(--color-text); gap: var(--space-4); }
+  div.cell--dual .cta--secondary:hover,
+  div.cell--dual .cta--secondary:focus-visible {
+    color: var(--color-text);
+    gap: var(--space-4);
+  }
 
   @media (max-width: 720px) {
     .cell { padding: var(--space-6); }
