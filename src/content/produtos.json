@@ -32,7 +32,7 @@
     "status": "ativo",
     "ctaLabel": "Acessar sistema",
     "secondaryUrl": "https://spaces.viktus.com.br/comecar",
-    "secondaryLabel": "Cadastrar meu espaço",
+    "secondaryLabel": "Divulgue seu espaço",
     "accent": "var(--fumaca)",
     "icon": "/brand/icon-spaces.svg",
     "descriptor": "Spaces"
