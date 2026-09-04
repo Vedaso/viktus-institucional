@@ -5,5 +5,6 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   output: 'static',
   site: 'https://viktus.com.br',
-  integrations: [sitemap()],
+  // /cv é link não listado: fica fora do sitemap para não ser indexado por descoberta.
+  integrations: [sitemap({ filter: (page) => !page.includes('/cv') })],
 });
