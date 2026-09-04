@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" fill="none" stroke="#0E1330" stroke-width="3" stroke-linejoin="miter">
+  
+  <rect x="2" y="2" width="60" height="60"></rect>
+  
+  <rect x="67" y="2" width="31" height="29"></rect>
+  
+  <rect x="69" y="38" width="29" height="24" fill="#0E1330" stroke="none"></rect>
+  
+  <rect x="2" y="69" width="96" height="29"></rect>
+</svg>
