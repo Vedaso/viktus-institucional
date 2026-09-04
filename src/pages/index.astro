@@ -4,41 +4,79 @@ import Nav from '../components/Nav.astro';
 import ProductCell from '../components/ProductCell.astro';
 import Footer from '../components/Footer.astro';
 import produtos from '../content/produtos.json';
+import cases from '../content/cases.json';
 
-// O primeiro produto do JSON ocupa a célula grande. Trocar o destaque
-// é reordenar o array; voltar a peso igual é ajustar o .grid abaixo.
-const ativos = produtos.filter((p) => p.status !== 'em-breve').length;
+const sistemasNoAr = produtos.filter((p) => p.status !== 'em-breve').length + cases.length - 1;
+// Crossmetic está encerrado, não conta como sistema no ar.
+
+const materiais = [
+  {
+    name: 'Guia do Locatário',
+    project: 'Sala Reúna',
+    href: '/materiais/reuna-guia-do-locatario.pdf',
+    type: 'PDF',
+  },
+  {
+    name: 'Apresentação comercial',
+    project: 'Conselhos RH',
+    href: '/materiais/conselhos-rh-apresentacao-comercial.html',
+    type: 'Deck',
+  },
+];
+
+const ferramentas = [
+  {
+    name: 'Argus',
+    description: 'Orquestrador de agentes que roda o parque de infraestrutura, publica o painel de roadmap e executa os crons dos servidores.',
+  },
+  {
+    name: 'Viktus Estudos',
+    description: 'Biblioteca pessoal de estudo, com companions de leitura e workbooks de idioma gerados por IA.',
+  },
+];
 ---
 
-<Layout title="Grupo Viktus — Tecnologia para saúde e gestão">
+<Layout
+  title="Victor Omena — Sistemas que resolvem, não protótipos"
+  description="Construo produtos e sistemas que rodam negócios de verdade: SaaS financeiro, automação de atendimento, BI e plataformas de reserva."
+>
   <Nav />
 
   <main>
     <section class="hero">
-      <div class="container">
-        <h1 class="display reveal">Tecnologia para saúde <em>e gestão.</em></h1>
-        <dl class="facts reveal">
-          <div>
-            <dt>Sistemas no ar</dt>
-            <dd>{ativos}</dd>
-          </div>
-          <div>
-            <dt>Sede</dt>
-            <dd>Maceió, AL</dd>
-          </div>
-          <div>
-            <dt>Arquitetura</dt>
-            <dd>Multi-tenant nativo</dd>
-          </div>
-        </dl>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <p class="label reveal">Victor Omena</p>
+          <h1 class="display reveal">Sistemas que resolvem, <em>não protótipos.</em></h1>
+          <p class="lede reveal">
+            De SaaS financeiro a automação de atendimento: o que já está no ar, com clientes reais.
+          </p>
+          <dl class="facts reveal">
+            <div>
+              <dt>Sistemas no ar</dt>
+              <dd>{sistemasNoAr}</dd>
+            </div>
+            <div>
+              <dt>Setores</dt>
+              <dd>Saúde · RH · Hospitalidade</dd>
+            </div>
+            <div>
+              <dt>Sede</dt>
+              <dd>Maceió, AL</dd>
+            </div>
+          </dl>
+        </div>
+        <div class="hero-photo reveal">
+          <img src="/profile/victor-omena.jpg" alt="Victor Omena" width="900" height="1348" />
+        </div>
       </div>
     </section>
 
     <section class="products" id="produtos">
       <div class="container">
-        <h2 class="label reveal">Nossas soluções</h2>
-        <div class="grid reveal">
-          {produtos.map((p, i) => (
+        <h2 class="label reveal">Produtos Viktus</h2>
+        <div class="grid grid--flat reveal">
+          {produtos.map((p) => (
             <ProductCell
               name={p.name}
               tagline={p.tagline}
@@ -51,29 +89,81 @@ const ativos = produtos.filter((p) => p.status !== 'em-breve').length;
               descriptor={p.descriptor}
               secondaryUrl={p.secondaryUrl}
               secondaryLabel={p.secondaryLabel}
-              featured={i === 0}
             />
           ))}
         </div>
       </div>
     </section>
 
+    <section class="cases" id="cases">
+      <div class="container">
+        <h2 class="label reveal">O que já construí</h2>
+        <ul class="case-list reveal">
+          {cases.map((c) => (
+            <li class="case">
+              <div class="case-head">
+                <span class="case-name">{c.name}</span>
+                <span class="case-tag">{c.tag}</span>
+              </div>
+              <p class="case-tagline">{c.tagline}</p>
+              <p class="case-desc">{c.description}</p>
+              {c.url && (
+                <a class="case-link" href={c.url} target="_blank" rel="noopener noreferrer">
+                  {c.ctaLabel}
+                  <span aria-hidden="true">→</span>
+                </a>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="ferramentas" id="ferramentas">
+      <div class="container">
+        <h2 class="label reveal">Também construí</h2>
+        <ul class="tool-list reveal">
+          {ferramentas.map((f) => (
+            <li>
+              <strong>{f.name}</strong>
+              <span>{f.description}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <section class="materiais" id="materiais">
+      <div class="container">
+        <h2 class="label reveal">Materiais executivos</h2>
+        <ul class="material-list reveal">
+          {materiais.map((m) => (
+            <li>
+              <a href={m.href} target="_blank" rel="noopener noreferrer">
+                <span class="material-type">{m.type}</span>
+                <span class="material-name">{m.name}</span>
+                <span class="material-project">{m.project}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
     <section class="about" id="sobre">
       <div class="container">
-        <h2 class="label reveal">Sobre o Grupo</h2>
+        <h2 class="label reveal">Sobre</h2>
         <div class="about-body reveal">
           <p>
-            O Grupo Viktus desenvolve software voltado para a realidade das empresas brasileiras.
-            Nosso foco está na simplicidade de uso, confiabilidade e integração com os canais que
-            seus clientes já utilizam.
+            Projeto, construo e mantenho os sistemas acima do início ao fim: banco de dados,
+            backend, frontend e integração com os canais que os clientes já usam.
           </p>
           <p>
-            Cada produto da família Viktus foi construído para resolver um problema real:
-            gestão financeira, comunicação com pacientes e controle de espaços, tudo com
-            multi-tenancy nativo e infraestrutura moderna.
+            O Grupo Viktus reúne os três produtos de software (Finanças, Care e Spaces);
+            o resto é trabalho direto com clientes e negócios próprios.
           </p>
           <a href="/sobre" class="link-sobre">
-            Conheça mais sobre o Grupo
+            Dados da empresa e produtos Viktus
             <span aria-hidden="true">→</span>
           </a>
         </div>
@@ -92,16 +182,40 @@ const ativos = produtos.filter((p) => p.status !== 'em-breve').length;
 
   /* ---------- hero ---------- */
   .hero { padding: var(--space-24) var(--space-6) var(--space-12); }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: var(--space-16);
+    align-items: center;
+  }
+
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: var(--label-tracking);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-6);
+  }
+  .hero-copy .label { margin-bottom: var(--space-3); }
 
   .display {
-    font-size: clamp(2.75rem, 8.5vw, 7rem);
+    font-size: clamp(2.25rem, 6vw, 4.5rem);
     font-weight: 500;
     line-height: var(--display-leading);
     letter-spacing: var(--display-tracking);
-    max-width: 13ch;
     text-wrap: balance;
   }
   .display em { font-style: normal; color: var(--color-text-faint); }
+
+  .lede {
+    margin-top: var(--space-4);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--color-text-muted);
+    max-width: 48ch;
+  }
 
   .facts {
     display: flex;
@@ -126,23 +240,16 @@ const ativos = produtos.filter((p) => p.status !== 'em-breve').length;
     font-variant-numeric: tabular-nums;
   }
 
-  /* ---------- rótulo de seção ---------- */
-  .label {
-    font-family: var(--font-mono);
-    font-size: 0.68rem;
-    font-weight: 500;
-    letter-spacing: var(--label-tracking);
-    text-transform: uppercase;
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-6);
+  .hero-photo img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border);
   }
 
   /* ---------- produtos ---------- */
   .products { padding: var(--space-16) var(--space-6); }
 
-  /* Grade quebrada: o destaque ocupa a coluna larga e as duas linhas.
-     Para peso igual entre os três, trocar por repeat(3, 1fr) e remover
-     a regra de grid-row abaixo. */
   .grid {
     display: grid;
     grid-template-columns: 1.25fr 1fr;
@@ -150,10 +257,85 @@ const ativos = produtos.filter((p) => p.status !== 'em-breve').length;
     background: var(--color-border);
     border: 1px solid var(--color-border);
   }
-  .grid > :global(.cell--featured) { grid-row: span 2; }
+  .grid--flat { grid-template-columns: repeat(3, 1fr); }
+
+  /* ---------- cases ---------- */
+  .cases { padding: var(--space-16) var(--space-6); border-top: 1px solid var(--color-border); }
+  .case-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--color-border);
+    border: 1px solid var(--color-border);
+  }
+  .case {
+    background: var(--color-bg);
+    padding: var(--space-8);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .case-head { display: flex; justify-content: space-between; align-items: baseline; gap: var(--space-4); }
+  .case-name { font-weight: 600; font-size: 1.05rem; }
+  .case-tag {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-faint);
+    white-space: nowrap;
+  }
+  .case-tagline { color: var(--color-text-muted); font-size: 0.9rem; }
+  .case-desc { color: var(--color-text-muted); font-size: 0.88rem; line-height: 1.6; margin-top: var(--space-1); }
+  .case-link {
+    margin-top: var(--space-2);
+    align-self: flex-start;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    letter-spacing: var(--label-tracking);
+    text-transform: uppercase;
+    color: var(--color-text);
+    text-decoration: none;
+    display: inline-flex;
+    gap: var(--space-2);
+  }
+  .case-link:hover { gap: var(--space-3); }
+
+  /* ---------- ferramentas ---------- */
+  .ferramentas { padding: var(--space-12) var(--space-6); }
+  .tool-list { list-style: none; display: flex; flex-direction: column; gap: var(--space-3); max-width: 62ch; }
+  .tool-list li { display: flex; flex-direction: column; gap: 2px; font-size: 0.9rem; }
+  .tool-list strong { color: var(--color-text); }
+  .tool-list span { color: var(--color-text-muted); line-height: 1.6; }
+
+  /* ---------- materiais ---------- */
+  .materiais { padding: var(--space-12) var(--space-6); }
+  .material-list { list-style: none; display: flex; flex-wrap: wrap; gap: var(--space-4); }
+  .material-list a {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: var(--space-4) var(--space-6);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    min-width: 220px;
+    transition: border-color var(--dur-base) var(--ease), background var(--dur-base) var(--ease);
+  }
+  .material-list a:hover { border-color: var(--color-text-muted); background: var(--color-surface-hover); opacity: 1; }
+  .material-type {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-faint);
+  }
+  .material-name { color: var(--color-text); font-weight: 500; font-size: 0.95rem; }
+  .material-project { color: var(--color-text-muted); font-size: 0.82rem; }
 
   /* ---------- sobre ---------- */
-  .about { padding: var(--space-12) var(--space-6) var(--space-16); }
+  .about { padding: var(--space-12) var(--space-6) var(--space-16); border-top: 1px solid var(--color-border); }
   .about-body { display: flex; flex-direction: column; gap: var(--space-4); }
   .about-body p {
     font-size: 1rem;
@@ -178,8 +360,10 @@ const ativos = produtos.filter((p) => p.status !== 'em-breve').length;
   .link-sobre:hover { gap: var(--space-4); opacity: 1; }
 
   @media (max-width: 860px) {
-    .grid { grid-template-columns: 1fr; }
-    .grid > :global(.cell--featured) { grid-row: auto; }
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-photo { max-width: 320px; }
+    .grid--flat { grid-template-columns: 1fr; }
+    .case-list { grid-template-columns: 1fr; }
     .hero { padding: var(--space-16) var(--space-6) var(--space-8); }
     .facts { gap: var(--space-6) var(--space-8); margin-top: var(--space-8); }
   }
