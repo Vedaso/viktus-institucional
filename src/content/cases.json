@@ -2,15 +2,17 @@
   {
     "id": "conselhos-rh",
     "name": "Conselhos RH",
+    "logo": "/brand/clientes/conselhos-rh.png",
     "tag": "Produto próprio",
     "tagline": "SaaS de RH, do blog à consultoria",
-    "description": "Sistema com cerca de 50 rotas: blog, vagas com banco de talentos, ferramentas de avaliação comportamental (DISC), loja de materiais, portal do cliente e módulo de consultoria com controle de acesso por papel. Suíte de 328 testes automatizados.",
+    "description": "Cerca de 50 rotas: blog, vagas com banco de talentos, avaliação comportamental (DISC), loja de materiais, portal do cliente e consultoria com controle de acesso por papel. 328 testes automatizados.",
     "url": "https://conselhosdorh.com.br",
     "ctaLabel": "Visitar"
   },
   {
     "id": "clinica-guri",
     "name": "Clínica Guri",
+    "logo": "/brand/clientes/clinica-guri.png",
     "tag": "Cliente direto",
     "tagline": "BI, site e intranet em produção",
     "description": "Painel de BI (faturamento, agenda, conversão, no-show, call center), site institucional e intranet, integrados ao Viktus Care para o atendimento ao paciente.",
@@ -20,6 +22,7 @@
   {
     "id": "sala-reuna",
     "name": "Sala Reúna",
+    "logo": "/brand/clientes/sala-reuna.png",
     "tag": "Negócio próprio",
     "tagline": "Locação de espaços profissionais em Maceió",
     "description": "Plataforma de reserva de salas rodando sobre o Viktus Spaces e o Viktus Care, do site à cobrança e ao controle de acesso.",
@@ -29,18 +32,20 @@
   {
     "id": "sante",
     "name": "Santé Consultórios",
+    "logo": "/brand/clientes/sante.png",
     "tag": "Cliente",
     "tagline": "Locação de consultórios de saúde",
     "description": "Locadora de consultórios rodando Viktus Spaces, Viktus Care e Chatwoot integrados para reserva, cobrança e atendimento.",
-    "url": null,
-    "ctaLabel": null
+    "url": "https://spaces.viktus.com.br/sante",
+    "ctaLabel": "Visitar"
   },
   {
     "id": "crossmetic",
     "name": "Crossmetic",
+    "logo": null,
     "tag": "Primeiro cliente · histórico",
     "tagline": "BI para distribuidora de cosméticos",
-    "description": "Dashboard de vendas com sincronização automática de notas fiscais (API Bling) e assistente por IA. Precursor direto do Viktus Finanças. Projeto encerrado em 2026.",
+    "description": "Dashboard de vendas com sincronização automática de notas fiscais (API Bling) e assistente por IA. Precursor direto do Viktus Finanças. Encerrado em 2026.",
     "url": null,
     "ctaLabel": null
   }

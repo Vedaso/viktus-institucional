@@ -21,15 +21,9 @@ import { join } from 'node:path';
 const DIST = 'dist';
 const META = /<meta\s+name=["']build-commit["']\s+content=["']([^"']+)["']/i;
 
-// Documentos estáticos embarcados (ex.: deck de portfólio em public/materiais/), não páginas
-// do site geradas pelo Layout — não têm de onde vir a meta e não fazem parte da checagem de
-// identidade de deploy.
-const IGNORAR = [join(DIST, 'materiais')];
-
 function htmls(dir) {
   return readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
     const p = join(dir, e.name);
-    if (IGNORAR.includes(p)) return [];
     return e.isDirectory() ? htmls(p) : e.name.endsWith('.html') ? [p] : [];
   });
 }
