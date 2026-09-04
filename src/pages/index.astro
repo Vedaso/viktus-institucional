@@ -393,6 +393,7 @@ const buildCommit = import.meta.env.GIT_COMMIT ?? process.env.GIT_COMMIT ?? 'dev
     .js .piece__shot { transition:transform .9s cubic-bezier(.22,.61,.36,1) }
     .js .rv:not(.in) .piece__shot { transform:scale(.972) }
   }
+  .hero h1 + .slogan{margin-top:24px;font-size:clamp(1.02rem,1.9vw,1.2rem);color:rgba(242,238,227,.72)}
   .slogan{margin-top:14px;font-family:var(--display);font-size:clamp(.98rem,1.5vw,1.12rem);color:rgba(242,238,227,.62);letter-spacing:-.01em;max-width:44ch}
 </style>
       <style is:global>
@@ -455,8 +456,7 @@ const buildCommit = import.meta.env.GIT_COMMIT ?? process.env.GIT_COMMIT ?? 'dev
     <div class="shell hero__in">
       <div>
         <h1>Primeiro o processo.<br><em>Depois a ferramenta que o&nbsp;sustenta.</em></h1>
-        <p class="lede">E ela só funciona quando é simples a ponto de a pessoa operar sem perceber que está seguindo um processo.</p>
-          <p class="slogan">Apenas dados sólidos protegem de verdade o seu negócio.</p>
+        <p class="slogan">Apenas dados sólidos protegem de verdade o seu negócio.</p>
         <div class="hero__acts">
           <a class="ghost" href="/clientes">Ver o trabalho
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
