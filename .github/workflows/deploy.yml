@@ -28,10 +28,10 @@ jobs:
 
       - run: npm ci
 
+      # Sete caracteres, a mesma forma curta que o build à mão usa (git rev-parse --short) e
+      # que o passo `provar` procura. Com o SHA inteiro a meta e a comparação não batem.
       - name: build
-        run: npm run build
-        env:
-          GIT_COMMIT: ${{ github.sha }}
+        run: GIT_COMMIT="${GITHUB_SHA:0:7}" npm run build
 
       - name: publicar no Pages
         run: npx wrangler pages deploy dist/ --project-name viktus-institucional --branch main
