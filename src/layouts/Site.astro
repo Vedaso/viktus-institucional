@@ -16,6 +16,8 @@ interface Props {
   skipHref?: string;
   skipLabel?: string;
   noindex?: boolean;
+  /** Página de erro: não é um endereço que alguém deva guardar nem indexar. */
+  semCanonical?: boolean;
 }
 
 const {
@@ -26,6 +28,7 @@ const {
   skipHref = '#topo',
   skipLabel = 'Pular para o conteúdo',
   noindex = false,
+  semCanonical = false,
 } = Astro.props;
 
 const canonical = new URL(path, Astro.site).href;
@@ -47,7 +50,7 @@ const buildCommit = import.meta.env.GIT_COMMIT ?? process.env.GIT_COMMIT ?? 'dev
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="build-commit" content={buildCommit} />
-    <link rel="canonical" href={canonical} />
+    {!semCanonical && <link rel="canonical" href={canonical} />}
     {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />

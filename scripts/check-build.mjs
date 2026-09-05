@@ -2,17 +2,16 @@
  * Gate de build: o artefato precisa saber dizer qual commit ele é.
  *
  * POR QUE ISTO EXISTE: em 17/07/2026 um deploy de um `dist/` velho reverteu esta produção, e
- * ninguém percebeu, porque o site antigo também devolve HTTP 200. A partir de 27/07 o runbook de
- * deploy (viktus-monitor, coletor/deploys.json) confere identidade depois de publicar — ele busca
- * viktus.com.br e procura o commit que acabou de subir. Se a `<meta name="build-commit">` não
- * estiver no HTML, aquele smoke reprova sempre e o deploy é revertido por engano.
+ * ninguém percebeu, porque o site antigo também devolve HTTP 200. Sem um jeito de perguntar à
+ * página publicada que commit ela é, um deploy só pode ser suposto.
  *
- * Ou seja: este check não protege o site, protege o deploy automático de se enganar. Ele falha o
- * build ANTES de tocar produção, que é o único momento em que falhar é barato.
+ * Quem faz essa pergunta hoje é o passo `provar` de .github/workflows/deploy.yml: depois de
+ * publicar, ele busca viktus.com.br e exige encontrar ali o commit que acabou de subir. Este
+ * gate garante que exista o que buscar — ele falha o build ANTES de tocar produção, que é o
+ * único momento em que falhar é barato.
  *
- * Também é o requisito 7 do contrato de admissão (`py admissao.py` no viktus-monitor): até hoje o
- * `build` deste repo era `astro build` puro, sem nenhuma verificação encadeada — o único dos
- * projetos com runbook nessa situação.
+ * O consumidor anterior era o runbook do viktus-monitor (coletor/deploys.json), encerrado em
+ * 01/08/2026. O gate continuou valendo; só mudou quem lê a meta do outro lado.
  */
 
 import { readdirSync, readFileSync, statSync } from 'node:fs';

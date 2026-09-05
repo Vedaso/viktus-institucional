@@ -1,43 +1,49 @@
-# Astro Starter Kit: Minimal
+# viktus.com.br
+
+Site institucional do Grupo Viktus, em Astro estático, publicado no Cloudflare Pages.
+É a âncora do domínio: `viktus.com.br` e `www.viktus.com.br` são servidos por este projeto.
+
+## Rodar
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev        # http://localhost:4321
+npm run build      # dist/ + o gate de identidade do build
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Publicar
 
-## 🚀 Project Structure
+Um push na `main` publica: `.github/workflows/deploy.yml` faz o build com `GIT_COMMIT`,
+manda o `dist/` para o Pages e só passa depois de encontrar aquele commit na
+`<meta name="build-commit">` de `viktus.com.br`. Ou seja, um deploy verde é um deploy provado.
 
-Inside of your Astro project, you'll see the following folders and files:
+À mão, quando for preciso:
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+```sh
+GIT_COMMIT=$(git rev-parse --short HEAD) npm run build
+npx wrangler pages deploy dist/ --project-name viktus-institucional --branch main
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+`npm run build` sem `GIT_COMMIT` marca as páginas como `dev` e não deve ir para produção —
+`scripts/check-build.mjs` avisa.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+## Como o site é montado
 
-Any static assets, like images, can be placed in the `public/` directory.
+| | |
+|---|---|
+| `src/layouts/Site.astro` | a casca de todas as páginas: head, marca, navegação, rodapé, reveal |
+| `src/styles/site.css` | o CSS de todo o site, carregado uma vez |
+| `src/styles/*.css` | o que é de uma página só, importado depois do `site.css` |
+| `src/pages/*.astro` | só o conteúdo, dentro de `<Site>` |
+| `public/` | fontes, capturas e marcas, servidas como arquivo |
 
-## 🧞 Commands
+Uma página nova é um `.astro` em `src/pages/` que envolve o conteúdo em `<Site>` com
+`title`, `description` e `path` — o `path` sempre com barra final, que é a forma que o
+Pages serve.
 
-All commands are run from the root of the project, from a terminal:
+## Onde mais mexer muda o site
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- `public/_headers` — cabeçalhos de segurança e a política de cache dos ativos.
+- `astro.config.mjs` — `site`, `trailingSlash` e o sitemap (o `/cv` fica fora dele).
+- `CLAUDE.md` — o que a Cloudflare serve em cada rota, incluindo as do Worker do Care,
+  que **não** são deste projeto.
