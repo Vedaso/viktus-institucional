@@ -19,3 +19,7 @@
   Cache-Control: public, max-age=604800
 /profile/*
   Cache-Control: public, max-age=604800
+
+# O wordmark entra pelo CSS de todas as páginas (--wm) e mora na raiz por causa disso.
+/wordmark-viktus.png
+  Cache-Control: public, max-age=604800
