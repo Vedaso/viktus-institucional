@@ -1,0 +1,22 @@
+    .legal{max-width:74ch;margin-inline:auto}
+    .legal h1{font-family:var(--display);font-size:clamp(1.9rem,4vw,2.8rem);font-weight:600;
+              letter-spacing:-.03em;line-height:1.08;margin-bottom:10px}
+    .legal .vig{color:var(--mute-2);font-size:.86rem;margin-bottom:34px}
+    .legal h2{font-family:var(--display);font-size:1.06rem;font-weight:600;letter-spacing:-.01em;
+              margin:34px 0 10px;padding-top:22px;border-top:1px solid var(--line)}
+    .legal h2:first-of-type{border-top:0;padding-top:0}
+    .legal p{color:var(--mute);line-height:1.75;margin-bottom:14px}
+    .legal ul{margin:0 0 16px 0;padding-left:20px}
+    .legal li{color:var(--mute);line-height:1.72;margin-bottom:7px}
+    .legal strong{color:var(--bone);font-weight:600}
+    .legal a{color:var(--bone);text-decoration:underline;text-underline-offset:3px}
+    .legal a:hover{opacity:.8}
+    /* link em texto corrido tem alvo pequeno por natureza; o que é navegação ganha piso */
+    .legal nav a{display:inline-flex;align-items:center;min-height:44px;text-decoration:none;
+                 font-size:.86rem;color:var(--mute)}
+    .legal nav{display:flex;gap:18px;flex-wrap:wrap;margin-top:40px;padding-top:22px;
+               border-top:1px solid var(--line)}
+    .legal .canais{list-style:none;padding:0;display:grid;gap:12px;
+                   grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+    .legal .canais li{background:var(--card);border:1px solid var(--line);border-radius:14px;
+                      padding:18px 20px;margin:0}

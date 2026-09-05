@@ -1,0 +1,4 @@
+    /* o retrato entra sem moldura: a máscara já dissolve o fundo de tijolo na página,
+       então borda ou raio de canto criariam um recorte que a imagem não tem */
+    .face img.retrato-mask{border-radius:0;border:0;box-shadow:none;background:none;width:100%;height:auto;display:block;aspect-ratio:auto;object-fit:contain;object-position:50% 50%}
+    .face{background:none;border:0;box-shadow:none;padding:0}

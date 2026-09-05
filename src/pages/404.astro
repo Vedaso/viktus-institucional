@@ -1,52 +1,37 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Nav from '../components/Nav.astro';
-import Footer from '../components/Footer.astro';
+// A 404 ficou para trás no redesign de 04/09/2026: era a única página ainda no layout antigo,
+// com outra tipografia e outra navegação. Quem errasse o endereço saía do site sem perceber
+// que ainda estava nele.
+import Site from '../layouts/Site.astro';
 ---
 
-<Layout
-  title="Página não encontrada — Grupo Viktus"
+<Site
+  title="Página não encontrada — Viktus"
   description="Esta página não existe no site do Grupo Viktus. Veja as páginas disponíveis ou fale com a gente."
+  path="/404/"
+  noindex
 >
-  <Nav />
-
-  <main class="container">
-    <h1>Esta página não existe</h1>
-    <p>
-      O endereço que você abriu não corresponde a nenhuma página do site. Ele pode ter
-      mudado, ou o link que você seguiu pode estar incompleto.
-    </p>
-    <ul>
-      <li><a href="/">Página inicial</a></li>
-      <li><a href="/sobre">Sobre o Grupo Viktus</a></li>
-      <li><a href="/contato">Contato</a></li>
-    </ul>
-  </main>
-
-  <Footer />
-</Layout>
-
-<style>
-  .container {
-    max-width: var(--max-width);
-    margin: 0 auto;
-    padding: var(--space-12) var(--space-6);
-  }
-  h1 {
-    font-size: 2rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    margin-bottom: var(--space-6);
-  }
-  p {
-    line-height: 1.75;
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-12);
-  }
-  ul {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-</style>
+<section class="sec" id="erro">
+  <div class="shell">
+    <div class="sec__head">
+      <p class="eyebrow">Erro 404</p>
+      <h1>Esta página não existe.</h1>
+      <p class="lede">O endereço que você abriu não corresponde a nenhuma página do site. Ele pode ter mudado, ou o link que você seguiu pode estar incompleto.</p>
+      <div class="hero__acts">
+        <a class="ghost" href="/">Início
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+        <a class="ghost" href="/clientes/">Clientes
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+        <a class="ghost" href="/sobre/">Sobre
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+        <a class="ghost" href="/contato/">Contato
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+</Site>

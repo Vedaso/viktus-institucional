@@ -1,0 +1,122 @@
+---
+// A casca de todas as páginas do site: head, marca, navegação, rodapé e o reveal.
+//
+// Até 05/09/2026 cada página carregava a sua própria cópia disso, e a cópia do CSS junto —
+// sete arquivos que precisavam ser editados em conjunto para a navbar não divergir. O que é
+// próprio de uma página continua nela, como CSS importado depois deste layout.
+import '../styles/site.css';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Só quando o cartão do link precisa dizer outra coisa que não a description. */
+  ogDescription?: string;
+  /** Caminho canônico, sempre com barra final: é a forma que o Cloudflare Pages serve. */
+  path: string;
+  skipHref?: string;
+  skipLabel?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  ogDescription = description,
+  path,
+  skipHref = '#topo',
+  skipLabel = 'Pular para o conteúdo',
+  noindex = false,
+} = Astro.props;
+
+const canonical = new URL(path, Astro.site).href;
+const ogImage = new URL('/og-image.png', Astro.site).href;
+const home = path === '/';
+
+// Identidade do build. Em 17/07/2026 um deploy de um dist/ velho reverteu esta produção sem
+// ninguém notar, porque o site antigo também devolve HTTP 200. Esta meta é o que permite
+// perguntar à página publicada que commit ela é; o gate em scripts/check-build.mjs recusa o
+// build que não souber responder. Fora do deploy vira 'dev', que é honesto.
+const buildCommit = import.meta.env.GIT_COMMIT ?? process.env.GIT_COMMIT ?? 'dev';
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="build-commit" content={buildCommit} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:locale" content="pt_BR" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+          href="/fonts/bricolage-grotesque-ea394f39.woff2" />
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+          href="/fonts/inter-246c9b0d.woff2" />
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip" href={skipHref}>{skipLabel}</a>
+
+    <header class="top">
+      <div class="shell top__in">
+        <a class="top__mark" href={home ? '#topo' : '/'} aria-label="Viktus — início">
+          <span class="wordmark" role="img" aria-label="Viktus"></span>
+        </a>
+        <nav class="nav" aria-label="Seções">
+          <a href={home ? '#produtos' : '/#produtos'}>Produtos</a>
+          <a href="/clientes/" aria-current={path === '/clientes/' ? 'page' : undefined}>Clientes</a>
+          <a href="/sobre/" aria-current={path === '/sobre/' ? 'page' : undefined}>Sobre</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="topo">
+      <slot />
+    </main>
+
+    <footer class="foot">
+      <div class="shell foot__in">
+        <span class="wordmark" role="img" aria-label="Viktus"></span>
+        <p>Guri Grupo de Urgência e Recuperação Infantil Ltda · <span style="white-space:nowrap">CNPJ 12.181.962/0001-73</span>&nbsp;·&nbsp;Maceió/AL</p>
+      </div>
+    </footer>
+
+    <script is:inline>
+      // Revelação no scroll. Marca <html class="js"> primeiro: sem isso o CSS acima nem começa,
+      // então quem estiver sem JS vê a página inteira, parada, em vez de uma tela preta.
+      (function () {
+        var raiz = document.documentElement;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        raiz.className += ' js';
+        var alvos = document.querySelectorAll('.sec__head, .piece, .prod, .band, .about__col, .face');
+        for (var i = 0; i < alvos.length; i++) alvos[i].classList.add('rv');
+        if (!('IntersectionObserver' in window)) {                 // sem suporte, mostra tudo
+          for (var j = 0; j < alvos.length; j++) alvos[j].classList.add('in');
+          return;
+        }
+        var obs = new IntersectionObserver(function (entradas) {
+          entradas.forEach(function (e) {
+            if (e.isIntersecting) { e.target.classList.add('in'); obs.unobserve(e.target); }
+          });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.06 });
+        for (var k = 0; k < alvos.length; k++) obs.observe(alvos[k]);
+        // rede de segurança: se algo não for observado a tempo, aparece de qualquer jeito
+        setTimeout(function () {
+          for (var m = 0; m < alvos.length; m++) alvos[m].classList.add('in');
+        }, 2600);
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+/* O que a home faz diferente do resto do site.
+
+   Carregado depois do site.css, na ordem dos imports da página: o que estiver aqui
+   vence o comum, com a mesma especificidade. */
+
+/* O h1 da home é uma tese, não um nome: cabe mais texto e ele pesa menos na tela. */
+.hero h1 {
+  font-size: clamp(2.15rem, 5.6vw, 3.9rem);
+  max-width: 20ch;
+}
+.hero h1 em { font-style: normal; color: rgba(242, 238, 227, .55) }
+
+.hero h1 + .slogan {
+  margin-top: 24px;
+  font-size: clamp(1.02rem, 1.9vw, 1.2rem);
+  color: rgba(242, 238, 227, .72);
+}
+.slogan {
+  margin-top: 14px;
+  font-family: var(--display);
+  font-size: clamp(.98rem, 1.5vw, 1.12rem);
+  color: rgba(242, 238, 227, .62);
+  letter-spacing: -.01em;
+  max-width: 44ch;
+}
+
+    /* O tile da Crossmetic não tem barra de navegador (não há site para mostrar), então
+       para a altura bater com os cards vizinhos ele soma a altura da barra ao próprio corpo. */
+
+    /* o tile arquivado não é link: herda a casca só para a geometria bater com os vizinhos */
+    .shot--arch-wrap{cursor:default;display:block}
+    .shot--arch-wrap:hover{transform:none}
+
+    .piece__kicker{font-family:var(--text);font-size:.72rem;font-weight:600;
+      letter-spacing:.18em;text-transform:uppercase;color:var(--mute-2);margin-bottom:12px}
+
+    /* Fecha a seção de produtos levando para a outra frente. Sem isso, a página termina
+       nos produtos e o portfólio de clientes só existe pela nav. */
+    .passagem{display:flex;align-items:center;justify-content:space-between;gap:24px;
+      margin-top:clamp(20px,2.6vw,30px);padding:clamp(22px,2.6vw,30px) clamp(24px,3vw,34px);
+      border-radius:16px;text-decoration:none;min-height:44px;
+      background:linear-gradient(150deg,rgba(242,238,227,.055),rgba(242,238,227,.015));
+      border:1px solid var(--line);
+      transition:border-color .3s var(--ease),transform .3s var(--ease),background .3s var(--ease)}
+    .passagem:hover,.passagem:focus-visible{border-color:var(--line-2);transform:translateY(-2px);
+      background:linear-gradient(150deg,rgba(242,238,227,.09),rgba(242,238,227,.02))}
+    .passagem__k{display:block;font-family:var(--display);font-size:.74rem;font-weight:600;
+      letter-spacing:.14em;text-transform:uppercase;color:var(--mute-2);margin-bottom:6px}
+    .passagem__t{display:block;font-family:var(--display);font-size:clamp(1.1rem,2vw,1.4rem);
+      font-weight:600;letter-spacing:-.02em;color:var(--bone)}
+    .passagem__go{flex:0 0 auto;font-size:1.3rem;color:var(--mute);transition:transform .3s var(--ease)}
+    .passagem:hover .passagem__go{transform:translateX(5px);color:var(--bone)}
+    @media (prefers-reduced-motion:reduce){.passagem,.passagem__go{transition:none}
+      .passagem:hover{transform:none}.passagem:hover .passagem__go{transform:none}}

@@ -1,0 +1,27 @@
+/* ---------------- currículo ---------------- */
+.cv-sec{margin-top:clamp(38px,5vw,60px)}
+.cv-sec h2{font-size:clamp(1.15rem,2vw,1.4rem);font-weight:600;letter-spacing:-.02em;margin-bottom:6px}
+.cv-sec__nota{color:var(--txt-2);font-size:.92rem;margin-bottom:20px;max-width:62ch}
+.cv-lista{list-style:none;display:flex;flex-direction:column;margin:0;padding:0}
+.cv-item{display:flex;align-items:baseline;justify-content:space-between;gap:20px;
+         padding:16px 0;border-top:1px solid var(--line)}
+.cv-item--bloco{align-items:flex-start}
+.cv-item__main{display:flex;flex-direction:column;gap:3px;min-width:0}
+.cv-item__t{font-weight:600;font-size:1.02rem;letter-spacing:-.01em}
+.cv-item__o{color:var(--txt-2);font-size:.92rem}
+.cv-item__p{color:var(--txt-2);font-size:.92rem;line-height:1.62;margin-top:8px;max-width:66ch}
+.cv-item__k{flex:0 0 auto;font-family:var(--mono,ui-monospace,monospace);font-size:.7rem;
+            letter-spacing:.12em;text-transform:uppercase;color:var(--txt-3,var(--txt-2))}
+@media (max-width:640px){
+  .cv-item{flex-direction:column;gap:6px}
+  .cv-item__k{order:-1}
+}
+/* impressão: quem for salvar em PDF não leva fundo escuro nem elemento de navegação */
+@media print{
+  :root,body{background:#fff !important;color:#111 !important}
+  .top,.foot,.cv-voltar{display:none !important}
+  .cv-item__o,.cv-item__p,.cv-sec__nota{color:#444 !important}
+  .cv-item{break-inside:avoid;border-top:1px solid #ddd}
+  a{color:#111 !important;text-decoration:underline}
+}
+.stack-nota{margin-top:16px;color:var(--txt-2);font-size:.84rem;opacity:.9}
