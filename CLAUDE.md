@@ -33,16 +33,34 @@ com status em tempo real e serve como âncora para Meta Business Verification.
 ## Comandos
 ```bash
 npm run dev         # dev local
-npm run build       # build estático para dist/
-npx wrangler pages deploy dist/ --project-name viktus-institucional
+npm run build       # build estático para dist/ + gate de identidade
 ```
 
-## Prompts de implementação
-- `prompt-fase0.md` — Auditoria (read-only)
-- `prompt-fase1.md` — Criar site em staging
-- `prompt-fase2.md` — Redirect Rules Cloudflare
-- `prompt-fase3.md` — Cutover `viktus.com.br` (risco médio)
-- `prompt-fase4.md` — Meta Business Verification (guia)
+## Deploy
+Push na `main` publica: `.github/workflows/deploy.yml` builda com `GIT_COMMIT`, manda para o
+Pages e só passa depois de achar aquele commit na `<meta name="build-commit">` de
+viktus.com.br. Deploy verde é deploy provado.
 
-## Plano completo
-`~/OneDrive/Documentos/Obsidian Vault/Viktus/viktus-web-presence.md`
+À mão, quando for preciso:
+```bash
+GIT_COMMIT=$(git rev-parse --short HEAD) npm run build
+npx wrangler pages deploy dist/ --project-name viktus-institucional --branch main
+```
+Sem `GIT_COMMIT` o build sai marcado como `dev` e `scripts/check-build.mjs` avisa — esse build
+não vai para produção.
+
+Os secrets `CLOUDFLARE_API_TOKEN` e `CLOUDFLARE_ACCOUNT_ID` estão no repo no GitHub; a fonte
+deles é `Claude/secrets/cloudflare.env`.
+
+## Estrutura
+`src/layouts/Site.astro` é a casca de todas as páginas (head, marca, nav, rodapé, reveal) e
+carrega `src/styles/site.css`. O que é de uma página só vive em `src/styles/<nome>.css`,
+importado depois. Uma página é só conteúdo dentro de `<Site title description path>` — `path`
+sempre com barra final, que é a forma que o Pages serve.
+
+Até 05/09/2026 cada página tinha a sua cópia de tudo isso, com as fontes e as fotos em base64
+dentro do CSS. Se algo parecer duplicado de novo, é regressão.
+
+## Histórico
+Os prompts das fases 0 a 4 e a auditoria de julho estão em `docs/historico/`.
+Plano completo: `~/OneDrive/Documentos/Obsidian Vault/Viktus Institucional/`.
