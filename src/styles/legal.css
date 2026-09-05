@@ -20,3 +20,6 @@
                    grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
     .legal .canais li{background:var(--card);border:1px solid var(--line);border-radius:14px;
                       padding:18px 20px;margin:0}
+    .legal .canais a{display:inline-flex;align-items:center;min-height:44px;
+                     text-decoration:none;color:var(--bone);font-weight:600}
+    .legal .canais a:hover{text-decoration:underline;text-underline-offset:3px}

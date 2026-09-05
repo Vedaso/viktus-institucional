@@ -70,9 +70,8 @@ const buildCommit = import.meta.env.GIT_COMMIT ?? process.env.GIT_COMMIT ?? 'dev
     <slot name="head" />
   </head>
   <body>
-    <a class="skip" href={skipHref}>{skipLabel}</a>
-
     <header class="top">
+      <a class="skip" href={skipHref}>{skipLabel}</a>
       <div class="shell top__in">
         <a class="top__mark" href={home ? '#topo' : '/'} aria-label="Viktus — início">
           <span class="wordmark" role="img" aria-label="Viktus"></span>

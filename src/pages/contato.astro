@@ -1,4 +1,7 @@
 ---
+// A /contato tinha ficado com o markup do design anterior: .channels, .channel, .products-links,
+// .intro e .icon não existem em CSS nenhum desde o redesign, então a página vinha sem estilo
+// enquanto /termos e /privacidade seguiam o padrão. Aqui ela volta ao vocabulário do site.
 import Site from '../layouts/Site.astro';
 import '../styles/legal.css';
 ---
@@ -7,39 +10,32 @@ import '../styles/legal.css';
   title="Contato — Grupo Viktus"
   description="Canais de contato do Grupo Viktus e suporte dos produtos."
   path="/contato/"
-  skipHref="#topo"
-  skipLabel="Pular para o conteúdo"
 >
-      <section class="sec">
-        <div class="shell">
-          <div class="legal">
-<h1>Contato</h1>
-    <p class="intro">
-      Tem alguma dúvida sobre nossos produtos ou quer saber mais sobre o Grupo Viktus?
-      Entre em contato pelos canais abaixo.
-    </p>
+<section class="sec">
+  <div class="shell">
+    <div class="legal">
+      <h1>Contato</h1>
+      <p class="vig">Respondemos em dias úteis, de Maceió/AL.</p>
 
-    <div class="channels">
-      <a href="mailto:contato@viktus.com.br" class="channel">
-        <span class="icon">✉</span>
-        <div>
-          <strong>Email</strong>
-          <span>contato@viktus.com.br</span>
-        </div>
-      </a>
-    </div>
+      <p>Tem alguma dúvida sobre os produtos ou quer saber mais sobre o Grupo Viktus? Escreva para <a href="mailto:contato@viktus.com.br">contato@viktus.com.br</a>.</p>
 
-    <div class="products-links">
       <h2>Suporte dos produtos</h2>
-      <p>Para suporte técnico dos produtos, acesse diretamente:</p>
-      <ul>
+      <p>Cada produto atende pelo próprio endereço, que é por onde o time de suporte enxerga a sua conta:</p>
+      <ul class="canais">
         <li><a href="https://financas.viktus.com.br" target="_blank" rel="noopener">Viktus Finanças →</a></li>
         <li><a href="https://care.viktus.com.br" target="_blank" rel="noopener">Viktus Care →</a></li>
         <li><a href="https://spaces.viktus.com.br" target="_blank" rel="noopener">Viktus Spaces →</a></li>
       </ul>
+
+      <h2>Empresa</h2>
+      <p>Guri Grupo de Urgência e Recuperação Infantil Ltda · <span style="white-space:nowrap">CNPJ 12.181.962/0001-73</span> · Maceió/AL.</p>
+
+      <nav class="page-nav">
+        <a href="/">Início</a>
+        <a href="/termos/">Termos de Uso</a>
+        <a href="/privacidade/">Política de Privacidade</a>
+      </nav>
     </div>
-          </div>
-        </div>
-      </section>
-    
+  </div>
+</section>
 </Site>
