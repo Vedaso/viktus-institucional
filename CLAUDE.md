@@ -1,6 +1,6 @@
 # Viktus Institucional
 
-Site institucional do Grupo Viktus em `viktus.com.br`. Apresenta os 3 produtos da família
+Site institucional do Grupo Viktus em `viktus.com.br`. Apresenta os produtos da família
 com status em tempo real e serve como âncora para Meta Business Verification.
 
 ## Stack
@@ -14,7 +14,11 @@ com status em tempo real e serve como âncora para Meta Business Verification.
 |---|---|---|
 | Viktus Finanças | `financas.viktus.com.br` | Em produção |
 | Viktus Care | `care.viktus.com.br` | Em produção |
-| Viktus Spaces | `spaces.viktus.com.br` | Em desenvolvimento |
+| Viktus Spaces | `spaces.viktus.com.br` | Em produção |
+| Viktus Estudos | `estudos.viktus.com.br` | Em produção |
+| Viktus Telas | `telas.viktus.com.br` | Em produção (Super Pizza) |
+| Viktus Tráfego | `trafego.viktus.com.br` | Interno (faixa, sem card) |
+| Argus | `painel.viktus.com.br` | Interno (faixa, sem card) |
 
 ## Cloudflare
 - Zone ID: `1d139dddd01f5f87a8d4bff43949f737`
