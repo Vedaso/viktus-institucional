@@ -272,25 +272,6 @@ p{margin:0}
   .prod:hover,.prod:focus-visible{transform:translateY(-4px);background:var(--card-2);box-shadow:0 0 0 1px var(--line-2),0 26px 50px -30px rgba(0,0,0,.95)}
 }
 
-/* internal tool band */
-.band{
-  display:flex;flex-wrap:wrap;align-items:flex-start;gap:16px 22px;
-  margin-top:20px;padding:20px 22px;border-radius:14px;
-  background:var(--card);box-shadow:0 0 0 1px var(--line);
-}
-.band .flag{align-self:center}
-.band__txt{min-width:min(100%,230px);flex:1 1 320px}
-.band h3{font-size:1.02rem;font-weight:600}
-.band p{margin-top:6px;color:var(--mute);font-size:.9rem;max-width:62ch}
-.flag{
-  display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;
-  padding:8px 14px;border-radius:99px;
-  font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
-  color:var(--mute);background:rgba(255,255,255,.05);
-  box-shadow:inset 0 0 0 1px var(--line);
-}
-.flag i{width:6px;height:6px;border-radius:50%;background:var(--mute-2);display:block}
-
 /* ---------- about / contact ---------- */
 .about{display:grid;gap:clamp(32px,5vw,56px);align-items:start}
 /* Duas colunas ja a partir de 760px: acima disso empilhar deixava meia tela vazia. */

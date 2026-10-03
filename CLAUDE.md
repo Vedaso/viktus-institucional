@@ -17,8 +17,9 @@ com status em tempo real e serve como âncora para Meta Business Verification.
 | Viktus Spaces | `spaces.viktus.com.br` | Em produção |
 | Viktus Estudos | `estudos.viktus.com.br` | Em produção |
 | Viktus Telas | `telas.viktus.com.br` | Em produção (Super Pizza) |
-| Viktus Tráfego | `trafego.viktus.com.br` | Interno (faixa, sem card) |
-| Argus | `painel.viktus.com.br` | Interno (faixa, sem card) |
+
+
+Ferramenta interna (Tráfego, Argus) não entra no site: decisão do Victor em 02/10/2026.
 
 ## Cloudflare
 - Zone ID: `1d139dddd01f5f87a8d4bff43949f737`
