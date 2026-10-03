@@ -24,13 +24,6 @@
   max-width: 44ch;
 }
 
-    /* O tile da Crossmetic não tem barra de navegador (não há site para mostrar), então
-       para a altura bater com os cards vizinhos ele soma a altura da barra ao próprio corpo. */
-
-    /* o tile arquivado não é link: herda a casca só para a geometria bater com os vizinhos */
-    .shot--arch-wrap{cursor:default;display:block}
-    .shot--arch-wrap:hover{transform:none}
-
     .piece__kicker{font-family:var(--text);font-size:.72rem;font-weight:600;
       letter-spacing:.18em;text-transform:uppercase;color:var(--mute-2);margin-bottom:12px}
 

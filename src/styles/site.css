@@ -217,24 +217,6 @@ p{margin:0}
   .shot:hover .shot__go,.shot:focus-visible .shot__go{background:var(--bone);color:var(--ink);border-color:var(--bone)}
 }
 
-/* archive piece (no screenshot) */
-.shot--archive{
-  display:grid;place-items:center;aspect-ratio:16/7;
-  border-radius:16px;overflow:hidden;text-align:center;padding:24px;
-  background:
-    radial-gradient(76% 120% at 50% 118%,rgba(226,174,76,.16),transparent 70%),
-    linear-gradient(160deg,#191920,#101014);
-  box-shadow:0 0 0 1px var(--line);
-}
-.shot--archive .word{
-  font-family:var(--display);font-weight:600;
-  font-size:clamp(1.6rem,5.6vw,3rem);letter-spacing:.06em;
-  line-height:1;
-}
-.shot--archive .sub{
-  margin-top:10px;font-size:.74rem;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);
-}
-
 .piece__logo{height:var(--logo-h,30px);width:auto;max-width:190px;object-fit:contain;object-position:left center}
 .piece__title{
   font-family:var(--display);font-weight:600;letter-spacing:-.025em;
