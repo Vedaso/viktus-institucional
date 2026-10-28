@@ -24,6 +24,19 @@
   max-width: 44ch;
 }
 
+    /* Produtos em grade: a família inteira cabe numa tela, em vez de uma linha alternada
+       por produto. O .work e o .piece do site.css seguem valendo no /clientes. */
+    .work--grade{gap:clamp(32px,3.6vw,44px) clamp(20px,2.4vw,28px);margin-top:clamp(32px,5vw,52px)}
+    @media (min-width:700px){.work--grade{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media (min-width:1180px){.work--grade{grid-template-columns:repeat(4,minmax(0,1fr))}}
+    .work--grade .piece{grid-template-columns:minmax(0,1fr);align-items:start;align-content:start;gap:20px}
+    .work--grade .piece__kicker{margin-bottom:8px}
+    .work--grade .piece__title{font-size:clamp(1.12rem,1.5vw,1.28rem);margin-top:0}
+    .work--grade .piece__desc{margin-top:10px;font-size:.9rem}
+    .work--grade .passagem{grid-column:1/-1}
+    /* Cartão estreito: o botão usa a medida do celular, sem descer dos 44px de toque. */
+    .work--grade .shot__go{padding:0 14px;font-size:.74rem;left:10px;bottom:10px}
+
     .piece__kicker{font-family:var(--text);font-size:.72rem;font-weight:600;
       letter-spacing:.18em;text-transform:uppercase;color:var(--mute-2);margin-bottom:12px}
 
