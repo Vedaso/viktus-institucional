@@ -1,0 +1,231 @@
+---
+// Chat de ideias: o visitante conta a ideia, o assistente organiza e o pedido chega ao Victor no
+// Telegram. Victor, 28/10/2026: "um chat limitadíssimo [...] para tentar trazer a ideia dela
+// para o papel". Quem responde e guarda é o Viktus Pedidos (`viktus-argus`, `functions/_ideia.js`),
+// em outra origem; os tetos moram lá, aqui só se mostra o que ele devolve.
+//
+// A sitekey do Turnstile é pública por desenho (vai no HTML de qualquer página que usa o widget).
+const API = 'https://pedido.viktus.com.br/p/api/ideia/';
+const SITEKEY = '0x4AAAAAAFAdm-walNgMPFcZ';
+---
+
+<button class="ideia-abre" type="button" aria-controls="ideia" aria-expanded="false" data-ideia-abre>
+  <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h12a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H9l-4 3v-3H4a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z"/></svg>
+  <span>Tire sua ideia do papel</span>
+</button>
+
+<section class="ideia" id="ideia" role="dialog" aria-modal="false" aria-labelledby="ideia-t" hidden data-api={API} data-sitekey={SITEKEY}>
+  <header class="ideia__cab">
+    <div>
+      <p class="ideia__k">Assistente Viktus</p>
+      <h2 class="ideia__t" id="ideia-t">Conte sua ideia</h2>
+      <p class="ideia__aviso">Usa IA. Não escreva dados de saúde nem senhas. <a href="/privacidade/">Privacidade</a></p>
+    </div>
+    <button class="ideia__fecha" type="button" aria-label="Fechar o chat" data-ideia-fecha>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+    </button>
+  </header>
+  <ol class="ideia__msgs" aria-live="polite" data-ideia-msgs></ol>
+  <div class="ideia__humano" data-ideia-humano></div>
+  <p class="ideia__erro" role="alert" hidden data-ideia-erro></p>
+  <form class="ideia__form" data-ideia-form>
+    <label class="ideia__sr" for="ideia-txt">Sua mensagem</label>
+    <textarea id="ideia-txt" rows="2" maxlength="600" placeholder="Escreva aqui…" disabled data-ideia-txt></textarea>
+    <button class="ideia__manda" type="submit" disabled aria-label="Mandar mensagem" data-ideia-manda>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 8h11M9.5 4l4 4-4 4"/></svg>
+    </button>
+  </form>
+  <footer class="ideia__pe">
+    <span class="ideia__resta" data-ideia-resta></span>
+    <button class="ideia__envia" type="button" disabled data-ideia-envia>Enviar ao Victor</button>
+  </footer>
+</section>
+
+<!-- Global, não escopado: as bolhas nascem no JS e não levam o atributo de escopo do Astro.
+     O prefixo `ideia` em toda classe é o que evita colisão. -->
+<style is:global>
+  .ideia-abre{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:60;
+    display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 20px;border-radius:99px;cursor:pointer;
+    background:var(--bone);color:var(--ink);border:0;font:600 .9rem/1 var(--text);
+    box-shadow:0 18px 40px -16px rgba(0,0,0,.9),0 0 0 1px rgba(0,0,0,.2)}
+  .ideia-abre svg{width:19px;height:19px;flex:0 0 auto}
+  .ideia-abre[aria-expanded="true"]{display:none}
+  @media (max-width:520px){.ideia-abre{padding:0 16px;font-size:.84rem}}
+
+  .ideia{position:fixed;right:max(16px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:61;
+    width:min(400px,calc(100vw - 32px));height:min(600px,calc(100dvh - 32px));
+    display:flex;flex-direction:column;border-radius:18px;overflow:hidden;
+    background:var(--card);border:1px solid var(--line-2);
+    box-shadow:0 30px 80px -24px rgba(0,0,0,.95)}
+  .ideia[hidden]{display:none}
+  .ideia__cab{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:16px 16px 14px 20px;
+    border-bottom:1px solid var(--line)}
+  .ideia__k{font:600 .68rem/1 var(--text);letter-spacing:.16em;text-transform:uppercase;color:var(--mute-2)}
+  .ideia__t{font:600 1.15rem/1.2 var(--display);letter-spacing:-.02em;margin:6px 0 0;color:var(--bone)}
+  .ideia__aviso{margin:6px 0 0;font-size:.72rem;line-height:1.4;color:var(--mute-2)}
+  .ideia__aviso a{color:var(--mute);text-decoration:underline;text-underline-offset:2px}
+  .ideia__fecha{width:44px;height:44px;display:grid;place-items:center;border-radius:12px;cursor:pointer;
+    background:transparent;border:1px solid var(--line);color:var(--mute)}
+  .ideia__fecha:hover,.ideia__fecha:focus-visible{color:var(--bone);border-color:var(--line-2)}
+  .ideia__fecha svg{width:16px;height:16px}
+
+  .ideia__msgs{flex:1 1 auto;overflow-y:auto;list-style:none;margin:0;padding:16px 16px 8px;display:flex;flex-direction:column;gap:10px}
+  .ideia__msg{max-width:86%;padding:10px 13px;border-radius:14px;font-size:.9rem;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
+  .ideia__msg--ia{align-self:flex-start;background:var(--card-2);color:var(--bone);border-bottom-left-radius:4px}
+  .ideia__msg--eu{align-self:flex-end;background:var(--bone);color:var(--ink);border-bottom-right-radius:4px}
+  .ideia__msg--fim{align-self:stretch;max-width:none;background:transparent;border:1px solid var(--line-2);color:var(--bone)}
+  .ideia__msg--pensando{color:var(--mute)}
+
+  .ideia__humano{display:flex;justify-content:center;padding:0 16px}
+  .ideia__humano:empty{display:none}
+  .ideia__erro{margin:0 16px 8px;font-size:.82rem;color:#ffb4a8}
+
+  .ideia__form{display:flex;gap:8px;align-items:flex-end;padding:10px 12px 6px 16px;border-top:1px solid var(--line)}
+  .ideia__form textarea{flex:1 1 auto;resize:none;min-height:44px;max-height:120px;padding:11px 12px;border-radius:12px;
+    background:var(--ink-2);color:var(--bone);border:1px solid var(--line);font:400 .9rem/1.4 var(--text)}
+  .ideia__form textarea:focus{outline:2px solid var(--line-2);outline-offset:1px}
+  .ideia__manda{width:44px;height:44px;flex:0 0 auto;display:grid;place-items:center;border-radius:12px;cursor:pointer;
+    background:var(--bone);color:var(--ink);border:0}
+  .ideia__manda svg{width:17px;height:17px}
+  .ideia__manda:disabled,.ideia__envia:disabled{opacity:.4;cursor:not-allowed}
+
+  .ideia__pe{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 12px 14px 16px}
+  .ideia__resta{font-size:.74rem;color:var(--mute-2)}
+  .ideia__envia{min-height:44px;padding:0 16px;border-radius:99px;cursor:pointer;font:600 .82rem/1 var(--text);
+    background:transparent;color:var(--bone);border:1px solid var(--line-2)}
+  .ideia__envia:not(:disabled):hover,.ideia__envia:not(:disabled):focus-visible{background:var(--bone);color:var(--ink)}
+  .ideia__sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+  @media (max-width:520px){
+    .ideia{right:0;bottom:0;width:100vw;height:100dvh;border-radius:0;border:0}
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    var caixa = document.getElementById('ideia');
+    if (!caixa) return;
+    var API = caixa.dataset.api, SITEKEY = caixa.dataset.sitekey;
+    var abre = document.querySelector('[data-ideia-abre]');
+    var q = function (s) { return caixa.querySelector(s); };
+    var msgs = q('[data-ideia-msgs]'), txt = q('[data-ideia-txt]'), manda = q('[data-ideia-manda]'),
+        envia = q('[data-ideia-envia]'), resta = q('[data-ideia-resta]'), erro = q('[data-ideia-erro]'),
+        humano = q('[data-ideia-humano]'), form = q('[data-ideia-form]');
+    var CHAVE = 'viktus-ideia';
+    // Estado da conversa na aba: sobrevive à troca de página do site. Pode faltar (aba anônima).
+    var st = { t: '', msgs: [], restantes: null, fim: '' };
+    try { st = JSON.parse(sessionStorage.getItem(CHAVE)) || st; } catch (e) {}
+    function guarda() { try { sessionStorage.setItem(CHAVE, JSON.stringify(st)); } catch (e) {} }
+    var ocupado = false, iniciando = false;
+
+    function limpa(t) { return String(t || '').replace(/\*\*/g, ''); }
+    function bolha(papel, texto) {
+      var li = document.createElement('li');
+      li.className = 'ideia__msg ideia__msg--' + papel;
+      li.textContent = limpa(texto);
+      msgs.appendChild(li);
+      msgs.scrollTop = msgs.scrollHeight;
+      return li;
+    }
+    function mostraErro(m) { erro.textContent = m || ''; erro.hidden = !m; }
+    function atualiza() {
+      var aberta = !!st.t && !st.fim;
+      var temIdeia = st.msgs.some(function (m) { return m.p === 'eu'; });
+      txt.disabled = !aberta || ocupado || st.restantes === 0;
+      manda.disabled = txt.disabled;
+      envia.disabled = !aberta || ocupado || !temIdeia;
+      resta.textContent = st.fim ? '' : st.restantes == null ? '' :
+        st.restantes === 0 ? 'Limite desta conversa: envie ao Victor' :
+        st.restantes === 1 ? 'Resta 1 mensagem' : 'Restam ' + st.restantes + ' mensagens';
+    }
+    function redesenha() {
+      msgs.textContent = '';
+      st.msgs.forEach(function (m) { bolha(m.p, m.x); });
+      if (st.fim) bolha('fim', st.fim);
+      atualiza();
+    }
+
+    function chama(op, corpo) {
+      return fetch(API + op, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(corpo) })
+        .then(function (r) {
+          return r.json().catch(function () { return {}; }).then(function (d) { d._status = r.status; return d; });
+        })
+        .catch(function () { return { _status: 0, erro: 'Sem conexão. Tente de novo.' }; });
+    }
+
+    function turnstile(cb) {
+      function render() {
+        humano.textContent = '';
+        window.turnstile.render(humano, { sitekey: SITEKEY, language: 'pt-br', theme: 'dark', callback: cb,
+          'error-callback': function () { mostraErro('Não consegui confirmar que você é uma pessoa. Recarregue a página.'); } });
+      }
+      if (window.turnstile) return render();
+      var s = document.createElement('script');
+      s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      s.async = true; s.onload = render;
+      s.onerror = function () { mostraErro('Não carreguei a verificação anti-robô. Recarregue a página.'); };
+      document.head.appendChild(s);
+    }
+
+    function inicia() {
+      if (st.t || iniciando) return;
+      iniciando = true;
+      bolha('ia', 'Um instante, confirmando que você é uma pessoa…').classList.add('ideia__msg--pensando');
+      turnstile(function (token) {
+        chama('iniciar', { turnstile: token }).then(function (d) {
+          iniciando = false;
+          humano.textContent = '';
+          if (!d.t) { msgs.textContent = ''; mostraErro(d.erro || 'Fora do ar agora.'); return; }
+          st = { t: d.t, msgs: [{ p: 'ia', x: d.resposta }], restantes: d.restantes, fim: '' };
+          guarda(); redesenha(); txt.focus();
+        });
+      });
+    }
+
+    function abrir() {
+      caixa.hidden = false; abre.setAttribute('aria-expanded', 'true');
+      redesenha();
+      if (!st.t && !st.fim) inicia(); else if (!txt.disabled) txt.focus();
+    }
+    function fechar() { caixa.hidden = true; abre.setAttribute('aria-expanded', 'false'); abre.focus(); }
+    abre.addEventListener('click', abrir);
+    q('[data-ideia-fecha]').addEventListener('click', fechar);
+    // No documento, não na caixa: depois do envio o campo trava e o foco pode estar fora dela.
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !caixa.hidden) fechar(); });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var texto = txt.value.trim();
+      if (!texto || ocupado) return;
+      mostraErro('');
+      ocupado = true; txt.value = '';
+      st.msgs.push({ p: 'eu', x: texto }); bolha('eu', texto);
+      var pensando = bolha('ia', 'Pensando…'); pensando.classList.add('ideia__msg--pensando');
+      atualiza();
+      chama('mensagem', { t: st.t, texto: texto }).then(function (d) {
+        ocupado = false; pensando.remove();
+        if (d.resposta) { st.msgs.push({ p: 'ia', x: d.resposta }); bolha('ia', d.resposta); }
+        else mostraErro(d.erro || 'Algo deu errado. Tente de novo.');
+        if (d.restantes != null) st.restantes = d.restantes;
+        if (d.sem_conversa || d.encerrada) st.t = '';
+        guarda(); atualiza();
+        if (!txt.disabled) txt.focus();
+      });
+    });
+    txt.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); form.requestSubmit(); }
+    });
+
+    envia.addEventListener('click', function () {
+      if (ocupado) return;
+      mostraErro(''); ocupado = true; envia.textContent = 'Enviando…'; atualiza();
+      chama('enviar', { t: st.t }).then(function (d) {
+        ocupado = false; envia.textContent = 'Enviar ao Victor';
+        if (!d.ok) { mostraErro(d.erro || 'Não consegui enviar. Tente de novo.'); atualiza(); return; }
+        st.fim = 'Recebido' + (d.os_rotulo ? ' · ' + d.os_rotulo : '') + '. O Victor recebeu sua ideia e vai te procurar no contato que você deixou.'
+          + (d.resumo ? '\n\n' + d.resumo : '');
+        guarda(); redesenha();
+      });
+    });
+  })();
+</script>
