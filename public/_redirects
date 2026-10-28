@@ -1,0 +1,4 @@
+# O portfólio de clientes mora na home desde 28/10/2026, logo abaixo dos produtos.
+# Quem chega pelo endereço antigo cai direto no bloco.
+/clientes   /#entregas   301
+/clientes/  /#entregas   301
