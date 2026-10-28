@@ -78,7 +78,7 @@ const buildCommit = import.meta.env.GIT_COMMIT ?? process.env.GIT_COMMIT ?? 'dev
         </a>
         <nav class="nav" aria-label="Seções">
           <a href={home ? '#produtos' : '/#produtos'}>Produtos</a>
-          <a href="/clientes/" aria-current={path === '/clientes/' ? 'page' : undefined}>Clientes</a>
+          <a href={home ? '#entregas' : '/#entregas'}>Clientes</a>
           <a href="/sobre/" aria-current={path === '/sobre/' ? 'page' : undefined}>Sobre</a>
         </nav>
       </div>
