@@ -9,7 +9,7 @@ import os
 import shutil
 
 BRAND = os.path.expanduser(
-    "~/OneDrive/Viktus - Gestão/Viktus/Viktus Brand/institucional/favicon"
+    "~/OneDrive/Viktus - Gestão/04 Viktus/60 Marketing/Viktus Brand/institucional/favicon"
 )
 OUT = os.path.expanduser("~/dev/viktus-institucional/public")
 
