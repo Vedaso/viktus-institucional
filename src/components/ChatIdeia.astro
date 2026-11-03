@@ -29,6 +29,11 @@ const SITEKEY = '0x4AAAAAAFAdm-walNgMPFcZ';
   <div class="ideia__humano" data-ideia-humano></div>
   <p class="ideia__erro" role="alert" hidden data-ideia-erro></p>
   <form class="ideia__form" data-ideia-form>
+    <input class="ideia__sr" type="file" id="ideia-arq" tabindex="-1" aria-hidden="true"
+      accept=".pdf,.docx,.xlsx,.pptx,.csv,.txt,.png,.jpg,.jpeg,.webp,.heic" data-ideia-arq />
+    <button class="ideia__clipe" type="button" disabled aria-label="Anexar arquivo" title="Anexar print, planilha ou documento (até 10 MB)" data-ideia-clipe>
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 9.5l-6.4 6.4a4 4 0 0 1-5.7-5.7l6.8-6.8a2.7 2.7 0 0 1 3.8 3.8l-6.8 6.8a1.3 1.3 0 0 1-1.9-1.9l6.2-6.2"/></svg>
+    </button>
     <label class="ideia__sr" for="ideia-txt">Sua mensagem</label>
     <textarea id="ideia-txt" rows="2" maxlength="600" placeholder="Escreva aqui…" disabled data-ideia-txt></textarea>
     <button class="ideia__manda" type="submit" disabled aria-label="Mandar mensagem" data-ideia-manda>
@@ -87,7 +92,12 @@ const SITEKEY = '0x4AAAAAAFAdm-walNgMPFcZ';
   .ideia__manda{width:44px;height:44px;flex:0 0 auto;display:grid;place-items:center;border-radius:12px;cursor:pointer;
     background:var(--bone);color:var(--ink);border:0}
   .ideia__manda svg{width:17px;height:17px}
-  .ideia__manda:disabled,.ideia__envia:disabled{opacity:.4;cursor:not-allowed}
+  .ideia__clipe{width:44px;height:44px;flex:0 0 auto;display:grid;place-items:center;border-radius:12px;cursor:pointer;
+    background:transparent;color:var(--mute);border:1px solid var(--line)}
+  .ideia__clipe:not(:disabled):hover,.ideia__clipe:not(:disabled):focus-visible{color:var(--bone);border-color:var(--line-2)}
+  .ideia__clipe svg{width:18px;height:18px}
+  .ideia__msg--arq{font-size:.82rem}
+  .ideia__manda:disabled,.ideia__envia:disabled,.ideia__clipe:disabled{opacity:.4;cursor:not-allowed}
 
   .ideia__pe{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 12px 14px 16px}
   .ideia__resta{font-size:.74rem;color:var(--mute-2)}
@@ -110,7 +120,9 @@ const SITEKEY = '0x4AAAAAAFAdm-walNgMPFcZ';
     var q = function (s) { return caixa.querySelector(s); };
     var msgs = q('[data-ideia-msgs]'), txt = q('[data-ideia-txt]'), manda = q('[data-ideia-manda]'),
         envia = q('[data-ideia-envia]'), resta = q('[data-ideia-resta]'), erro = q('[data-ideia-erro]'),
-        humano = q('[data-ideia-humano]'), form = q('[data-ideia-form]');
+        humano = q('[data-ideia-humano]'), form = q('[data-ideia-form]'),
+        clipe = q('[data-ideia-clipe]'), arq = q('[data-ideia-arq]');
+    var MAX_BYTES = 10 * 1024 * 1024;
     var CHAVE = 'viktus-ideia';
     // Estado da conversa na aba: sobrevive à troca de página do site. Pode faltar (aba anônima).
     var st = { t: '', msgs: [], restantes: null, fim: '' };
@@ -121,8 +133,8 @@ const SITEKEY = '0x4AAAAAAFAdm-walNgMPFcZ';
     function limpa(t) { return String(t || '').replace(/\*\*/g, ''); }
     function bolha(papel, texto) {
       var li = document.createElement('li');
-      li.className = 'ideia__msg ideia__msg--' + papel;
-      li.textContent = limpa(texto);
+      li.className = 'ideia__msg ideia__msg--' + (papel === 'arq' ? 'eu ideia__msg--arq' : papel);
+      li.textContent = papel === 'arq' ? '📎 ' + texto : limpa(texto);
       msgs.appendChild(li);
       msgs.scrollTop = msgs.scrollHeight;
       return li;
@@ -130,9 +142,10 @@ const SITEKEY = '0x4AAAAAAFAdm-walNgMPFcZ';
     function mostraErro(m) { erro.textContent = m || ''; erro.hidden = !m; }
     function atualiza() {
       var aberta = !!st.t && !st.fim;
-      var temIdeia = st.msgs.some(function (m) { return m.p === 'eu'; });
+      var temIdeia = st.msgs.some(function (m) { return m.p === 'eu' || m.p === 'arq'; });
       txt.disabled = !aberta || ocupado || st.restantes === 0;
       manda.disabled = txt.disabled;
+      clipe.disabled = !aberta || ocupado || st.anexos === 0;
       envia.disabled = !aberta || ocupado || !temIdeia;
       resta.textContent = st.fim ? '' : st.restantes == null ? '' :
         st.restantes === 0 ? 'Limite desta conversa: envie ao Victor' :
@@ -214,6 +227,37 @@ const SITEKEY = '0x4AAAAAAFAdm-walNgMPFcZ';
     });
     txt.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); form.requestSubmit(); }
+    });
+
+    clipe.addEventListener('click', function () { if (!clipe.disabled) arq.click(); });
+    arq.addEventListener('change', function () {
+      var f = arq.files && arq.files[0];
+      arq.value = '';
+      if (!f || ocupado || !st.t) return;
+      mostraErro('');
+      if (f.size > MAX_BYTES) { mostraErro('Arquivo grande demais (máximo de 10 MB).'); return; }
+      ocupado = true; atualiza();
+      var li = bolha('arq', 'Enviando ' + f.name + '…');
+      var corpo = new FormData();
+      corpo.append('t', st.t); corpo.append('arquivo', f, f.name);
+      // Sem Content-Type à mão: o navegador põe o multipart com o boundary.
+      fetch(API + 'anexo', { method: 'POST', body: corpo })
+        .then(function (r) { return r.json().catch(function () { return {}; }); })
+        .catch(function () { return { erro: 'Sem conexão. Tente de novo.' }; })
+        .then(function (d) {
+          ocupado = false;
+          if (d.ok) {
+            li.textContent = '📎 ' + d.nome;
+            st.msgs.push({ p: 'arq', x: d.nome });
+            st.anexos = d.anexos_restantes;
+          } else {
+            li.remove();
+            mostraErro(d.erro || 'Não consegui receber o arquivo. Tente de novo.');
+            if (d.sem_conversa || d.encerrada) st.t = '';
+          }
+          guarda(); atualiza();
+          if (!txt.disabled) txt.focus();
+        });
     });
 
     envia.addEventListener('click', function () {
