@@ -22,6 +22,10 @@ com status em tempo real e serve como âncora para Meta Business Verification.
 A home nova (aprovada pelo Victor em 18/11/2026) mostra 6 produtos: Finanças, Care, Spaces, Telas,
 Agro e Tráfego (o Tráfego entrou por decisão dele nessa data, revendo a de 02/10). Argus segue fora.
 
+**Sem Guri e sem CNPJ no site** (Victor, 18/11/2026: "tirar apenas do site, deixar no resto dos docs
+por hora"). Privacidade e Termos citam só "Viktus" + contato@; voltam a ter razão social e CNPJ quando
+o CNPJ da Viktus sair (aberto na Contajá). Atenção: a verificação da Meta usava o CNPJ no rodapé.
+
 ## Home (`src/pages/index.astro`) é GERADA
 Não edite à mão. A fonte é `~/OneDrive/Documentos/Claude/scripts/viktus-institucional/preview-nova-home.py`:
 `py preview-nova-home.py . src/pages/index.astro site` (grava também `public/produtos/*.png` e
