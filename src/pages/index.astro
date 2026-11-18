@@ -199,7 +199,23 @@ main h2{font-size:clamp(34px,4.6vw,60px);font-weight:700;max-width:18ch;margin-b
 #conversa p{font-size:20px;margin-bottom:36px}
 #conversa .btn-1{background:var(--tinta);color:var(--papel)}
 #conversa .btn-1:hover{background:#1B2147}
-footer{padding:40px 0;color:var(--apoio);font-size:14px;border-top:1px solid var(--linha)}
+.marca-v .wm{display:block;width:92px;height:28px;background:currentColor;-webkit-mask:var(--wm) left center/contain no-repeat;mask:var(--wm) left center/contain no-repeat}
+.rodape{padding:88px 0 28px;color:var(--apoio);font-size:15px;border-top:1px solid var(--linha);background-color:var(--escuro);background-image:linear-gradient(rgba(196,204,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(196,204,255,.055) 1px,transparent 1px);background-size:48px 48px;overflow:hidden}
+.rp-topo{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:40px}
+.rp-marca p{font:600 22px/1.25 Bricolage,sans-serif;color:var(--texto);max-width:16ch;margin:20px 0 24px}
+.lockup{display:block;width:150px;margin-left:-6px;aspect-ratio:209.9/120;background:var(--texto);-webkit-mask:var(--lk) left center/contain no-repeat;mask:var(--lk) left center/contain no-repeat}
+.rp-t{display:flex;align-items:center;gap:10px;font:500 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--texto);margin-bottom:12px}
+.rp-t::before{content:"";width:8px;height:8px;background:var(--q)}
+.rp-col:nth-child(2){--q:#A8E6C3}.rp-col:nth-child(3){--q:#F7B3D6}.rp-col:nth-child(4){--q:#C4CCFF}
+.rodape ul{list-style:none;margin:0;padding:0}
+.rodape li a{text-decoration:none;color:var(--apoio)}
+.rodape li a:hover{color:var(--texto);text-decoration:underline;text-underline-offset:4px}
+.rp-arte{width:100%;aspect-ratio:349/106;margin-top:72px;background:linear-gradient(180deg,rgba(196,204,255,.30),rgba(196,204,255,.04) 85%);-webkit-mask:var(--wm) left bottom/contain no-repeat;mask:var(--wm) left bottom/contain no-repeat}
+.rp-base{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-top:24px;padding-top:12px;border-top:1px solid var(--linha);font-size:14px}
+.rp-legal{display:flex;gap:24px}
+.rp-base a{color:var(--apoio)}
+@media (max-width:860px){.rp-topo{grid-template-columns:1fr 1fr}.rp-marca{grid-column:1/-1}}
+@media (max-width:520px){.rp-col:last-child{grid-column:1/-1}.rodape{padding-top:64px}.rp-arte{margin-top:48px}}
 @media (max-width:860px){
  nav a:not(.btn){display:none}
  section{padding:80px 0}
@@ -261,6 +277,8 @@ main>section{overflow-x:clip}
 body{color:var(--texto)}
 .escuro{background-color:#F6F5F0;background-image:linear-gradient(#ECEAE2 1px,transparent 1px),linear-gradient(90deg,#ECEAE2 1px,transparent 1px)}
 body>header{background:rgba(246,245,240,.92)}
+.rodape{background-color:#F6F5F0;background-image:linear-gradient(#ECEAE2 1px,transparent 1px),linear-gradient(90deg,#ECEAE2 1px,transparent 1px)}
+.rp-arte{background:linear-gradient(180deg,rgba(51,65,196,.20),rgba(51,65,196,.03) 85%)}
 nav a:hover{color:var(--texto)}
 .btn-1{background:#14162B;color:#F6F5F0}.btn-1:hover{background:#2A2E55}
 .btn-2{border-color:#14162B;color:#14162B}
@@ -273,11 +291,11 @@ nav a:hover{color:var(--texto)}
 .papel{border-top:1px solid var(--linha);background-color:#F6F5F0;background-image:linear-gradient(#ECEAE2 1px,transparent 1px),linear-gradient(90deg,#ECEAE2 1px,transparent 1px)}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation:none!important}}
-.ideia,.ideia-abre{--ink:#050714;--ink-2:#090c1c;--card:#0E1330;--card-2:#151b3d;--line:rgba(255,255,255,.09);--line-2:rgba(255,255,255,.17);--bone:#f4f1eb;--mute:#adaaa3;--mute-2:#96938c;--display:Bricolage,'Segoe UI',system-ui,sans-serif;--text:Inter,'Segoe UI',system-ui,sans-serif}</style>
+.ideia,.ideia-abre{--ink:#050714;--ink-2:#090c1c;--card:#0E1330;--card-2:#151b3d;--line:rgba(255,255,255,.09);--line-2:rgba(255,255,255,.17);--bone:#f4f1eb;--mute:#adaaa3;--mute-2:#96938c;--display:Bricolage,'Segoe UI',system-ui,sans-serif;--text:Inter,'Segoe UI',system-ui,sans-serif}:root{--wm:url(/wordmark-viktus.png);--lk:url(/brand/viktus-lockup.svg)}</style>
 </head>
 <body>
 <header><div class="wrap">
-<a class="marca-v" href="#hero">Viktus</a>
+<a class="marca-v" href="#hero" aria-label="Viktus, início"><span class="wm"></span></a>
 <nav aria-label="Seções"><a href="#produtos">O que já roda</a><a href="#como">Como funciona</a><a href="#origem">Origem</a><a class="btn btn-2" href="#conversa">Conversar</a></nav>
 </div></header>
 <main>
@@ -328,7 +346,16 @@ nav a:hover{color:var(--texto)}
 <a class="btn btn-1" href="#conversa" data-abre-chat>Contar a sua ideia</a>
 </div></section>
 </main>
-<footer><div class="wrap"><p>Viktus. Fale com a gente em <a href="mailto:contato@viktus.com.br">contato@viktus.com.br</a></p><p>Viktus é marca de Guri Grupo de Urgência e Recuperação Infantil Ltda · CNPJ 12.181.962/0001-73 · Maceió/AL · <a href="/privacidade/">Privacidade</a> · <a href="/termos/">Termos</a></p></div></footer>
+<footer class="rodape"><div class="wrap">
+<div class="rp-topo">
+<div class="rp-marca"><span class="lockup" role="img" aria-label="Viktus Gestão"></span><p>Sistemas que nascem do seu processo.</p><a class="btn btn-1" href="#conversa" data-abre-chat>Contar a sua ideia</a></div>
+<div class="rp-col"><p class="rp-t">Produtos</p><ul><li><a href="https://financas.viktus.com.br" target="_blank" rel="noopener">Finanças</a></li><li><a href="https://care.viktus.com.br" target="_blank" rel="noopener">Care</a></li><li><a href="https://spaces.viktus.com.br" target="_blank" rel="noopener">Spaces</a></li><li><a href="https://telas.viktus.com.br" target="_blank" rel="noopener">Telas</a></li><li><a href="https://agro.viktus.com.br" target="_blank" rel="noopener">Agro</a></li><li><a href="https://trafego.viktus.com.br" target="_blank" rel="noopener">Tráfego</a></li></ul></div>
+<div class="rp-col"><p class="rp-t">Viktus</p><ul><li><a href="#produtos">O que já roda</a></li><li><a href="#como">Como funciona</a></li><li><a href="/sobre/">Sobre</a></li><li><a href="/contato/">Contato</a></li></ul></div>
+<div class="rp-col"><p class="rp-t">Fale com a gente</p><ul><li><a href="mailto:contato@viktus.com.br">contato@viktus.com.br</a></li></ul></div>
+</div>
+<div class="rp-arte" aria-hidden="true"></div>
+<div class="rp-base"><span>© 2026 Viktus</span><span class="rp-legal"><a href="/privacidade/">Privacidade</a><a href="/termos/">Termos</a></span></div>
+</div></footer>
 <ChatIdeia />
 <style is:inline>
 .fantasma{position:absolute;z-index:3;display:flex;align-items:center;padding:0 12px;font:400 13px/1 'Courier New',monospace;
