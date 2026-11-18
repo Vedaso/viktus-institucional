@@ -19,7 +19,14 @@ com status em tempo real e serve como âncora para Meta Business Verification.
 | Viktus Telas | `telas.viktus.com.br` | Em produção (Super Pizza) |
 
 
-Ferramenta interna (Tráfego, Argus) não entra no site: decisão do Victor em 02/10/2026.
+A home nova (aprovada pelo Victor em 18/11/2026) mostra 6 produtos: Finanças, Care, Spaces, Telas,
+Agro e Tráfego (o Tráfego entrou por decisão dele nessa data, revendo a de 02/10). Argus segue fora.
+
+## Home (`src/pages/index.astro`) é GERADA
+Não edite à mão. A fonte é `~/OneDrive/Documentos/Claude/scripts/viktus-institucional/preview-nova-home.py`:
+`py preview-nova-home.py . src/pages/index.astro site` (grava também `public/produtos/*.png` e
+`public/vendor/gsap.min.js`). Tema automático pelo aparelho (escuro/claro). Os botões de conversa
+abrem o chat de ideias até existir o número de WhatsApp.
 
 ## Cloudflare
 - Zone ID: `1d139dddd01f5f87a8d4bff43949f737`
