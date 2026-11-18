@@ -33,7 +33,7 @@ const {
 } = Astro.props;
 
 const canonical = new URL(path, Astro.site).href;
-const ogImage = new URL('/og-image.png', Astro.site).href;
+const ogImage = new URL('/og-home.png', Astro.site).href;
 const home = path === '/';
 
 // Identidade do build. Em 17/07/2026 um deploy de um dist/ velho reverteu esta produção sem

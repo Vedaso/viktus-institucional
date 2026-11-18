@@ -4,7 +4,7 @@
 import ChatIdeia from '../components/ChatIdeia.astro';
 const buildCommit = import.meta.env.GIT_COMMIT ?? process.env.GIT_COMMIT ?? 'dev';
 const canonical = new URL('/', Astro.site).href;
-const ogImage = new URL('/og-image.png', Astro.site).href;
+const ogImage = new URL('/og-home.png', Astro.site).href;
 const title = 'Viktus · Sistemas que nascem do seu processo';
 const description = 'A Viktus entende como a sua empresa já trabalha e constrói o sistema em volta disso. Finanças, atendimento, reserva de espaço, telas, campo e tráfego já rodam em empresas reais.';
 ---
