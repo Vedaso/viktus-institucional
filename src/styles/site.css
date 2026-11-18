@@ -312,7 +312,8 @@ p{margin:0}
 .foot{border-top:1px solid var(--line);padding:34px 0 46px;background:var(--ink)}
 .foot__in{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;justify-content:space-between}
 .foot .wordmark{width:60px;height:18px;opacity:.9}
-.foot p{font-size:.79rem;color:var(--mute);max-width:46ch}
+.foot p{font-size:.79rem;color:var(--mute);max-width:46ch;text-wrap:balance}
+.foot p a{display:inline-flex;align-items:center;min-height:44px;color:inherit}
 
 
 /* ---------------- movimento ----------------
