@@ -1,6 +1,6 @@
 /* ---------------- currículo ---------------- */
 .cv-sec{margin-top:clamp(38px,5vw,60px)}
-.cv-sec h2{font-size:clamp(1.15rem,2vw,1.4rem);font-weight:600;letter-spacing:-.02em;margin-bottom:6px}
+.cv-sec h2{font-size:clamp(1.5rem,2.6vw,2rem);font-weight:700;letter-spacing:-.02em;margin-bottom:8px}
 .cv-sec__nota{color:var(--txt-2);font-size:.92rem;margin-bottom:20px;max-width:62ch}
 .cv-lista{list-style:none;display:flex;flex-direction:column;margin:0;padding:0}
 .cv-item{display:flex;align-items:baseline;justify-content:space-between;gap:20px;
@@ -18,7 +18,7 @@
 }
 /* impressão: quem for salvar em PDF não leva fundo escuro nem elemento de navegação */
 @media print{
-  :root,body{background:#fff !important;color:#111 !important}
+  :root,body{background:#fff !important;background-image:none !important;color:#111 !important}
   .top,.foot,.cv-voltar{display:none !important}
   .cv-item__o,.cv-item__p,.cv-sec__nota{color:#444 !important}
   .cv-item{break-inside:avoid;border-top:1px solid #ddd}
