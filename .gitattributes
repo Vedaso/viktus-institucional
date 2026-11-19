@@ -1,0 +1,2 @@
+# Shell scripts must keep LF regardless of the checkout platform: a CRLF shebang breaks bash.
+*.sh text eol=lf
