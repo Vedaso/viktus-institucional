@@ -5,7 +5,8 @@
  * ninguém percebeu, porque o site antigo também devolve HTTP 200. Sem um jeito de perguntar à
  * página publicada que commit ela é, um deploy só pode ser suposto.
  *
- * Quem faz essa pergunta hoje é o passo `provar` de .github/workflows/deploy.yml: depois de
+ * Quem faz essa pergunta hoje é o final de scripts/publicar.sh (antes, o passo `provar` do
+ * workflow deploy.yml, desligado em 19/11/2026): depois de
  * publicar, ele busca viktus.com.br e exige encontrar ali o commit que acabou de subir. Este
  * gate garante que exista o que buscar — ele falha o build ANTES de tocar produção, que é o
  * único momento em que falhar é barato.

@@ -13,19 +13,22 @@ npm run build      # dist/ + o gate de identidade do build
 
 ## Publicar
 
-Um push na `main` publica: `.github/workflows/deploy.yml` faz o build com `GIT_COMMIT`,
-manda o `dist/` para o Pages e só passa depois de encontrar aquele commit na
-`<meta name="build-commit">` de `viktus.com.br`. Ou seja, um deploy verde é um deploy provado.
-
-À mão, quando for preciso:
+Sem GitHub Actions desde 19/11/2026. Decisão do Victor: "remove isso do github testes locais e
+deploy pela maquina" (a cobrança do GitHub travou em 18/11 e todo job falhava em segundos). O
+Actions está desativado no repo e o workflow antigo está em `.github/workflows-desligados/`.
+**Push na `main` não publica.** Do MASTER:
 
 ```sh
-GIT_COMMIT=$(git rev-parse --short HEAD) npm run build
-npx wrangler pages deploy dist/ --project-name viktus-institucional --branch main
+bash scripts/verificar.sh   # build com GIT_COMMIT (7 caracteres do HEAD) + gate check-build
+bash scripts/publicar.sh    # verificar + wrangler pages deploy + prova do commit no ar
 ```
 
+A prova busca `viktus.com.br` por até 2 minutos e exige que a `<meta name="build-commit">` seja o
+commit que acabou de subir; um deploy verde é um deploy provado. O `publicar.sh` recusa rodar com
+arquivo rastreado diferente do HEAD (a meta mentiria); `ALLOW_DIRTY=1` força.
+
 `npm run build` sem `GIT_COMMIT` marca as páginas como `dev` e não deve ir para produção —
-`scripts/check-build.mjs` avisa.
+`scripts/check-build.mjs` avisa. O token vem de `Claude/secrets/cloudflare.env`, lido por parser.
 
 ## Como o site é montado
 

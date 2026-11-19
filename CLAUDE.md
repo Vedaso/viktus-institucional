@@ -53,20 +53,14 @@ npm run build       # build estático para dist/ + gate de identidade
 ```
 
 ## Deploy
-Push na `main` publica: `.github/workflows/deploy.yml` builda com `GIT_COMMIT`, manda para o
-Pages e só passa depois de achar aquele commit na `<meta name="build-commit">` de
-viktus.com.br. Deploy verde é deploy provado.
+Sem GitHub Actions desde 19/11/2026 (Victor: "remove isso do github testes locais e deploy pela
+maquina"). Push na `main` NÃO publica. Do MASTER: `bash scripts/verificar.sh` (build com
+`GIT_COMMIT` + gate) e `bash scripts/publicar.sh` (verificar + `wrangler pages deploy` + prova de que
+a `<meta name="build-commit">` de viktus.com.br é o commit que subiu). Workflow antigo em
+`.github/workflows-desligados/`.
 
-À mão, quando for preciso:
-```bash
-GIT_COMMIT=$(git rev-parse --short HEAD) npm run build
-npx wrangler pages deploy dist/ --project-name viktus-institucional --branch main
-```
 Sem `GIT_COMMIT` o build sai marcado como `dev` e `scripts/check-build.mjs` avisa — esse build
-não vai para produção.
-
-Os secrets `CLOUDFLARE_API_TOKEN` e `CLOUDFLARE_ACCOUNT_ID` estão no repo no GitHub; a fonte
-deles é `Claude/secrets/cloudflare.env`.
+não vai para produção. O token vem de `Claude/secrets/cloudflare.env` (parser, nunca `source`).
 
 ## Estrutura
 `src/layouts/Site.astro` é a casca de todas as páginas (head, marca, nav, rodapé, reveal) e
