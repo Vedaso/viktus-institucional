@@ -22,9 +22,10 @@ com status em tempo real e serve como âncora para Meta Business Verification.
 A home nova (aprovada pelo Victor em 18/11/2026) mostra 6 produtos: Finanças, Care, Spaces, Telas,
 Agro e Tráfego (o Tráfego entrou por decisão dele nessa data, revendo a de 02/10). Argus segue fora.
 
-**Sem Guri e sem CNPJ no site** (Victor, 18/11/2026: "tirar apenas do site, deixar no resto dos docs
-por hora"). Privacidade e Termos citam só "Viktus" + contato@; voltam a ter razão social e CNPJ quando
-o CNPJ da Viktus sair (aberto na Contajá). Atenção: a verificação da Meta usava o CNPJ no rodapé.
+**Sem Guri no site** (Victor, 18/11/2026: "tirar apenas do site, deixar no resto dos docs por hora").
+**CNPJ da Viktus no site desde 27/11/2026:** Viktus Tecnologia Ltda, CNPJ 70.316.828/0001-39, no
+rodapé (`src/layouts/Site.astro`), em Privacidade (responsável pelo tratamento) e em Termos (operador).
+A verificação da Meta lê o CNPJ do rodapé: não tirar. Endereço fiscal (o da contabilidade) fica fora.
 
 ## Home (`src/pages/index.astro`) é GERADA
 Não edite à mão. A fonte é `~/OneDrive/Documentos/Claude/scripts/viktus-institucional/preview-nova-home.py`:
