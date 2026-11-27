@@ -23,9 +23,10 @@ A home nova (aprovada pelo Victor em 18/11/2026) mostra 6 produtos: Finanças, C
 Agro e Tráfego (o Tráfego entrou por decisão dele nessa data, revendo a de 02/10). Argus segue fora.
 
 **Sem Guri no site** (Victor, 18/11/2026: "tirar apenas do site, deixar no resto dos docs por hora").
-**CNPJ da Viktus no site desde 27/11/2026:** Viktus Tecnologia Ltda, CNPJ 70.316.828/0001-39, no
-rodapé (`src/layouts/Site.astro`), em Privacidade (responsável pelo tratamento) e em Termos (operador).
-A verificação da Meta lê o CNPJ do rodapé: não tirar. Endereço fiscal (o da contabilidade) fica fora.
+**CNPJ da Viktus só em Privacidade e Termos (27/11/2026):** Viktus Tecnologia Ltda, CNPJ
+70.316.828/0001-39, em Privacidade (responsável pelo tratamento) e Termos (operador). Rodapé, Contato,
+Sobre e o resto do site seguem sem CNPJ (decisão de 18/11). Atenção: a verificação da Meta usava o
+CNPJ no rodapé. Endereço fiscal (o da contabilidade) fica fora.
 
 ## Home (`src/pages/index.astro`) é GERADA
 Não edite à mão. A fonte é `~/OneDrive/Documentos/Claude/scripts/viktus-institucional/preview-nova-home.py`:
