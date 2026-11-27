@@ -29,6 +29,8 @@ ENV_FILE="${CLOUDFLARE_ENV:-$HOME/OneDrive/Documentos/Claude/secrets/cloudflare.
 [ -f "$ENV_FILE" ] || { echo "missing $ENV_FILE"; exit 1; }
 for k in CLOUDFLARE_API_TOKEN CLOUDFLARE_ACCOUNT_ID; do
   v=$(grep -E "^$k=" "$ENV_FILE" | head -1 | cut -d= -f2- | tr -d '\r')
+  # The vault file may quote values (KEY="value"); strip one pair of surrounding quotes.
+  v="${v#[\"\']}"; v="${v%[\"\']}"
   [ -n "$v" ] || { echo "$k not found in $ENV_FILE"; exit 1; }
   export "$k=$v"
 done
